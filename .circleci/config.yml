@@ -38,8 +38,7 @@ jobs:
           path: app/build/outputs/apk/
           destination: apks
       - deploy:
-          name: Deploy APK.
           command: |
-            if ["${CIRCLE_BRANCH}" == "dev"]; then
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
               ./gradlew crashlyticsUploadDistributionRelease
             fi
