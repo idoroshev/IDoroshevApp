@@ -29,7 +29,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.idoroshevapp.android.myapplication"
+        applicationId "com.yandex.android.idoroshevapp"
         minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
