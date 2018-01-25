@@ -39,6 +39,6 @@ jobs:
           destination: apks
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ./gradlew crashlyticsUploadDistributionRelease
             fi
