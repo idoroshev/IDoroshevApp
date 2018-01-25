@@ -1,4 +1,4 @@
-package com.yandex.android.myapplication;
+package com.yandex.android.idoroshevapp;
 
 import org.junit.Test;
 
