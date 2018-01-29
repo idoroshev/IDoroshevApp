@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             tools:context="com.yandex.android.idoroshevapp.ThemeChoosingFragment">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:id="@+id/light_theme_radio_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/TopBorderedRadio"
+            android:gravity="center">
+            <RadioButton
+                android:id="@+id/light_theme_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/light_theme"
+                android:textSize="@dimen/medium_text_size"
+                android:checked="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dark_theme_radio_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            style="@style/BottomBorderedRadio">
+            <RadioButton
+                android:id="@+id/dark_theme_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dark_theme"
+                android:textSize="@dimen/medium_text_size"/>
+        </LinearLayout>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/NextButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/std_margin"/>
+</LinearLayout>

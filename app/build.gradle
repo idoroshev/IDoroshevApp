@@ -24,7 +24,7 @@ android {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile project.rootProject.file(keystoreProperties['storeFile'])
-            storePassword  keystoreProperties['storePassword']
+            storePassword keystoreProperties['storePassword']
         }
     }
     compileSdkVersion 26
@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:26.1.0'
     implementation 'net.hockeyapp.android:HockeySDK:5.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

@@ -17,4 +17,48 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="NextButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/next</item>
+    </style>
+
+    <style name="CircleImageStyle">
+        <item name="android:maxWidth">120dp</item>
+        <item name="android:maxHeight">120dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+    <style name="LeftBorderedRadio">
+        <item name="android:layout_marginTop">@dimen/std_margin</item>
+        <item name="android:layout_marginBottom">@dimen/std_margin</item>
+        <item name="android:layout_marginStart">@dimen/std_margin</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin</item>
+        <item name="android:background">@drawable/border</item>
+    </style>
+
+    <style name="RightBorderedRadio">
+        <item name="android:layout_marginTop">@dimen/std_margin</item>
+        <item name="android:layout_marginBottom">@dimen/std_margin</item>
+        <item name="android:layout_marginStart">@dimen/small_margin</item>
+        <item name="android:layout_marginEnd">@dimen/std_margin</item>
+        <item name="android:background">@drawable/border</item>
+    </style>
+
+    <style name="TopBorderedRadio">
+        <item name="android:layout_marginTop">@dimen/std_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin</item>
+        <item name="android:layout_marginStart">@dimen/std_margin</item>
+        <item name="android:layout_marginEnd">@dimen/std_margin</item>
+        <item name="android:background">@drawable/border</item>
+    </style>
+
+    <style name="BottomBorderedRadio">
+        <item name="android:layout_marginTop">@dimen/small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/std_margin</item>
+        <item name="android:layout_marginStart">@dimen/std_margin</item>
+        <item name="android:layout_marginEnd">@dimen/std_margin</item>
+        <item name="android:background">@drawable/border</item>
+    </style>
+
 </resources>

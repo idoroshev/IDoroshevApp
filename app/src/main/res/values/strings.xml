@@ -3,4 +3,18 @@
     <string name="action_settings">Settings</string>
     <string name="my_name_surname">Igor Doroshev</string>
     <string name="my_github_link">https://github.com/idoroshev</string>
+    <string name="next">NEXT</string>
+    <string name="welcome">Welcome</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Description</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="default_layout">Default layout</string>
+    <string name="dense_layout">Dense layout</string>
+    <string name="default_portrait_icons">Portrait: 4 icons in row</string>
+    <string name="default_landscape_icons">Landscape: 6 icons in row</string>
+    <string name="dense_portrait_icons">Portrait: 5 icons in row</string>
+    <string name="dense_landscape_icons">Landscape: 7 icons in row</string>
 </resources>
