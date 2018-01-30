@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IDoroshevApp</string>
+    <string name="action_settings">Настройки</string>
+    <string name="my_name_surname">Игорь Дорошев</string>
+    <string name="next">Далее</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="description">Описание</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="default_layout">Стандартный макет</string>
+    <string name="dense_layout">Плотный макет</string>
+    <string name="default_portrait_icons">Портретная: 4 иконки в ряд</string>
+    <string name="default_landscape_icons">Ландшафтная: 6 иконок в ряд</string>
+    <string name="dense_portrait_icons">Портретная: 5 иконок в ряд</string>
+    <string name="dense_landscape_icons">Ландшафтная: 7 иконок в ряд</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IDoroshevApp</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="my_name_surname">Igor Doroshev</string>
+    <string name="next">La prochaine fois</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="description">Description</string>
+    <string name="dark_theme">Thème sombre</string>
+    <string name="light_theme">Thème lumineux</string>
+    <string name="default_layout">Disposition standard</string>
+    <string name="dense_layout">Disposition dense</string>
+    <string name="default_portrait_icons">Portrait: 4 icônes d\'affilée</string>
+    <string name="default_landscape_icons">Paysage: 6 icônes d\'affilée</string>
+    <string name="dense_portrait_icons">Portrait: 5 icônes d\'affilée</string>
+    <string name="dense_landscape_icons">Paysage: 7 icônes d\'affilée</string>
+</resources>

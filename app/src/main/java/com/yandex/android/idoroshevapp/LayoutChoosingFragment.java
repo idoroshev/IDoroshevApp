@@ -1,6 +1,7 @@
 package com.yandex.android.idoroshevapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,15 +38,16 @@ public class LayoutChoosingFragment extends Fragment {
             }
         });
 
-        /*mNextButton.setOnClickListener(new View.OnClickListener() {
+        mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                Fragment fragment = new LayoutChoosingFragment();
-                fm.beginTransaction().replace(R.id.welcome_page_fragment_container, fragment).
-                        addToBackStack("layout_choosing").commit();
+                Intent intent = new Intent(view.getContext(), LauncherActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        | Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.putExtra("isDefaultLayout", mDefaultLayoutRadio.isChecked());
+                getContext().startActivity(intent);
             }
-        });*/
+        });
         return view;
     }
 

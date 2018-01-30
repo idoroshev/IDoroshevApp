@@ -24,10 +24,10 @@
     </style>
 
     <style name="CircleImageStyle">
-        <item name="android:maxWidth">120dp</item>
-        <item name="android:maxHeight">120dp</item>
-        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_width">152dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:adjustViewBounds">true</item>
+        <item name="android:cropToPadding">true</item>
     </style>
     <style name="LeftBorderedRadio">
         <item name="android:layout_marginTop">@dimen/std_margin</item>

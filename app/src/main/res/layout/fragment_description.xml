@@ -15,9 +15,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/circlepic"
+            app:srcCompat="@mipmap/ic_launcher_round"
             style="@style/CircleImageStyle"
             android:layout_marginBottom="@dimen/std_margin"
             android:layout_centerHorizontal="true"/>
