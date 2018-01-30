@@ -1,4 +1,4 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.launcher;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

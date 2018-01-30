@@ -1,4 +1,4 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.launcher;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

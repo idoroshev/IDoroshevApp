@@ -2,13 +2,13 @@ package com.yandex.android.idoroshevapp;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+
+import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
+import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,14 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-
-
         isDefaultLayout = getIntent().getBooleanExtra("isDefaultLayout", true);
         createGridLayout();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
     }
 
     private void createGridLayout() {
