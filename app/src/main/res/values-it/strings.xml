@@ -14,4 +14,6 @@
     <string name="dense_portrait_icons">Paesaggio: 6 icone in fila</string>
     <string name="default_landscape_icons">Ritratto: 5 icone in fila</string>
     <string name="dense_landscape_icons">Paesaggio: 7 icone in fila</string>
+    <string name="delete_this_item">Cancella questo oggetto?</string>
+    <string name="yes">SI</string>
 </resources>

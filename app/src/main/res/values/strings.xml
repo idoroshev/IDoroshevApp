@@ -16,4 +16,6 @@
     <string name="default_landscape_icons">Landscape: 6 icons in row</string>
     <string name="dense_portrait_icons">Portrait: 5 icons in row</string>
     <string name="dense_landscape_icons">Landscape: 7 icons in row</string>
+    <string name="delete_this_item">Delete this item?</string>
+    <string name="yes">YES</string>
 </resources>

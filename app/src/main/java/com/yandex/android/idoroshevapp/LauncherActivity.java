@@ -1,21 +1,26 @@
 package com.yandex.android.idoroshevapp;
 
-import android.graphics.Color;
-import android.support.annotation.NonNull;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
+import com.yandex.android.idoroshevapp.data.Item;
+import com.yandex.android.idoroshevapp.data.ItemStorage;
 import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
 import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class LauncherActivity extends AppCompatActivity {
     private boolean isDefaultLayout;
+    private ItemStorage itemStorage = new ItemStorage();
+    private FloatingActionButton fab;
+    private LauncherAdapter mLauncherAdapter;
 
     public LauncherActivity() {
 
@@ -26,13 +31,24 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         isDefaultLayout = getIntent().getBooleanExtra("isDefaultLayout", true);
+        fab = findViewById(R.id.fab);
         createGridLayout();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemStorage.pushFront();
+                mLauncherAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NEW_TASK );
+        startActivity(intent);
     }
 
     private void createGridLayout() {
@@ -46,20 +62,8 @@ public class LauncherActivity extends AppCompatActivity {
         final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
         recyclerView.setLayoutManager(layoutManager);
 
-        final List<Integer> data = generateData();
-        final LauncherAdapter launcherAdapter = new LauncherAdapter(data);
-        recyclerView.setAdapter(launcherAdapter);
+        mLauncherAdapter = new LauncherAdapter(itemStorage.getData(), getApplicationContext());
+        recyclerView.setAdapter(mLauncherAdapter);
     }
 
-    @NonNull
-    private List<Integer> generateData() {
-        final List<Integer> colors = new ArrayList<>();
-        final Random rnd = new Random();
-        for (int i = 0; i < 1000; i++) {
-            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            colors.add(color);
-        }
-
-        return colors;
-    }
 }

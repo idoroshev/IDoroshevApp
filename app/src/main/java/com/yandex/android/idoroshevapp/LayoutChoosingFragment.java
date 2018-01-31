@@ -41,7 +41,7 @@ public class LayoutChoosingFragment extends Fragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), LauncherActivity.class);
+                Intent intent = new Intent(view.getContext(), ListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
                         | Intent.FLAG_ACTIVITY_NEW_TASK );
                 intent.putExtra("isDefaultLayout", mDefaultLayoutRadio.isChecked());

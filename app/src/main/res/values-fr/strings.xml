@@ -14,4 +14,6 @@
     <string name="default_landscape_icons">Paysage: 6 icônes d\'affilée</string>
     <string name="dense_portrait_icons">Portrait: 5 icônes d\'affilée</string>
     <string name="dense_landscape_icons">Paysage: 7 icônes d\'affilée</string>
+    <string name="delete_this_item">Supprimer cet article?</string>
+    <string name="yes">OUI</string>
 </resources>

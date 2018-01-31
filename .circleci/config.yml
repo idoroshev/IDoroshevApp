@@ -83,4 +83,4 @@ workflows:
             - run_tests
           filters:
             branches:
-              only: dev
+              only: master
