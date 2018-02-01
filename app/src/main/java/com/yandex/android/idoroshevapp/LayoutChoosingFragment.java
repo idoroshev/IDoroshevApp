@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
+
 public class LayoutChoosingFragment extends Fragment {
 
     @Override
@@ -41,7 +43,7 @@ public class LayoutChoosingFragment extends Fragment {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ListActivity.class);
+                Intent intent = new Intent(view.getContext(), LauncherActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
                         | Intent.FLAG_ACTIVITY_NEW_TASK );
                 intent.putExtra("isDefaultLayout", mDefaultLayoutRadio.isChecked());

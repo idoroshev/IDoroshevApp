@@ -16,4 +16,6 @@
     <string name="dense_landscape_icons">Ландшафтная: 7 иконок в ряд</string>
     <string name="delete_this_item">Удалить этот элемент?</string>
     <string name="yes">ДА</string>
+    <string name="layout">Макет</string>
+    <string name="settings">Настройки</string>
 </resources>

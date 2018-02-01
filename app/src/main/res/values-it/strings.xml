@@ -16,4 +16,6 @@
     <string name="dense_landscape_icons">Paesaggio: 7 icone in fila</string>
     <string name="delete_this_item">Cancella questo oggetto?</string>
     <string name="yes">SI</string>
+    <string name="layout">Disposizione</string>
+    <string name="settings">Impostazioni</string>
 </resources>

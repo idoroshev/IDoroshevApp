@@ -16,4 +16,6 @@
     <string name="dense_landscape_icons">Landschaft: 7 Symbole in einer Reihe</string>
     <string name="delete_this_item">Lösche diesen gegenstand?</string>
     <string name="yes">JA</string>
+    <string name="layout">Layout</string>
+    <string name="settings">Einstellungen</string>
 </resources>
