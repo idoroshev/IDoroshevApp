@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.yandex.android.idoroshevapp.ThemeChoosingFragment">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            style="@style/TopBorderedRadio"
+            android:paddingStart="@dimen/std_padding"
+            android:paddingEnd="@dimen/std_padding">
+            <RadioButton
+                android:id="@+id/default_layout_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_layout"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_marginBottom="@dimen/std_margin"
+                android:checked="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:text="@string/default_portrait_icons"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:text="@string/default_landscape_icons"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            style="@style/BottomBorderedRadio"
+            android:paddingStart="@dimen/std_padding"
+            android:paddingEnd="@dimen/std_padding">
+            <RadioButton
+                android:id="@+id/dense_layout_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dense_layout"
+                android:layout_marginBottom="@dimen/std_margin"
+                android:textSize="@dimen/medium_text_size"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:text="@string/dense_portrait_icons"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:text="@string/dense_landscape_icons"/>
+        </LinearLayout>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/NextButtonStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/std_margin"/>
+</LinearLayout>

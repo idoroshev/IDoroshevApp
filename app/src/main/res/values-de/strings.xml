@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IDoroshevApp</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="my_name_surname">Igor Doroschew</string>
+    <string name="next">Nächstes Mal</string>
+    <string name="welcome">Willkommen zurück</string>
+    <string name="description">Beschreibung</string>
+    <string name="dark_theme">Dunkles Thema</string>
+    <string name="light_theme">Helles Thema</string>
+    <string name="default_layout">Standard-Layout</string>
+    <string name="dense_layout">Dichtes Layout</string>
+    <string name="default_portrait_icons">Portrait: 4 Icons in einer Reihe</string>
+    <string name="default_landscape_icons">Portrait: 5 Icons in einer Reihe</string>
+    <string name="dense_portrait_icons">Landschaft: 6 Symbole in einer Reihe</string>
+    <string name="dense_landscape_icons">Landschaft: 7 Symbole in einer Reihe</string>
+    <string name="delete_this_item">Lösche diesen gegenstand?</string>
+    <string name="yes">JA</string>
+    <string name="layout">Layout</string>
+    <string name="settings">Einstellungen</string>
+
+    <string name="theme">Thema</string>
+</resources>
