@@ -36,6 +36,7 @@ public class ListActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SettingsFragment.getApplicationTheme(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_nav_view);
         TAG = getString(R.string.list_activity);
@@ -95,13 +96,21 @@ public class ListActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        Intent intent = new Intent();
 
-        if (id == R.id.nav_launcher) {
-            Intent intent = new Intent(this, LauncherActivity.class);
-            startActivity(intent);
-            finish();
+        switch (id) {
+            case R.id.nav_launcher:
+                intent.setClass(this, LauncherActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_settings:
+                intent.setClass(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
         }
-
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

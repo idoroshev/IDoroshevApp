@@ -1,5 +1,6 @@
 package com.yandex.android.idoroshevapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +16,13 @@ public class WelcomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_welcome_page);
+        if (SettingsFragment.hasAllSettings(this)) {
+            Intent intent = new Intent(this, LauncherActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            setContentView(R.layout.activity_welcome_page);
+        }
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.welcome_page_fragment_container);
 

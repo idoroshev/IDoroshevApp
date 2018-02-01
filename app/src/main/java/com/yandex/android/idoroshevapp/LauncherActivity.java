@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private boolean isDefaultLayout;
     private ItemStorage itemStorage = new ItemStorage();
     private FloatingActionButton fab;
     private LauncherAdapter mLauncherAdapter;
@@ -35,10 +34,11 @@ public class LauncherActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SettingsFragment.getApplicationTheme(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher_nav_view);
+
         TAG = getString(R.string.launcher_activity);
-        isDefaultLayout = getIntent().getBooleanExtra(getString(R.string.is_default_layout), true);
         fab = findViewById(R.id.fab);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,8 +93,7 @@ public class LauncherActivity extends AppCompatActivity
         final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
         recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
 
-        final int spanCount = getResources().
-                getInteger(isDefaultLayout ? R.integer.icons_default_count : R.integer.icons_dense_count);
+        final int spanCount = getResources().getInteger(SettingsFragment.getLayoutColumnsId(this));
         final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -105,10 +104,28 @@ public class LauncherActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_list) {
-            Intent intent = new Intent(this, ListActivity.class);
-            startActivity(intent);
-            finish();
+        Intent intent;
+
+        switch (id) {
+            case R.id.nav_launcher:
+                intent = new Intent();
+                intent.setClass(this, LauncherActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_list:
+                intent = new Intent();
+                intent.setClass(this, ListActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.nav_settings:
+                intent = new Intent();
+                intent.setClass(this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+                startActivity(intent);
+                break;
+            default:
+                break;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

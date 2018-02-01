@@ -31,6 +31,7 @@ public class ThemeChoosingFragment extends Fragment {
                 mDarkThemeRadio.setChecked(false);
                 mDarkThemeRadioWrapper.setBackgroundColor(getResources().getColor(R.color.colorWhite));
                 mDarkThemeRadioWrapper.setBackground(getResources().getDrawable(R.drawable.border, null));
+                SettingsFragment.setApplicationTheme(Theme.LIGHT, getActivity());
             }
         });
 
@@ -40,6 +41,7 @@ public class ThemeChoosingFragment extends Fragment {
                 mLightThemeRadio.setChecked(false);
                 mDarkThemeRadio.setChecked(true);
                 mDarkThemeRadioWrapper.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+                SettingsFragment.setApplicationTheme(Theme.DARK, getActivity());
             }
         });
 

@@ -18,4 +18,5 @@
     <string name="yes">ДА</string>
     <string name="layout">Макет</string>
     <string name="settings">Настройки</string>
+    <string name="theme">Тема</string>
 </resources>

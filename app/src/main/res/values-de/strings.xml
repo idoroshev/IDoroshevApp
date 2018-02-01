@@ -18,4 +18,6 @@
     <string name="yes">JA</string>
     <string name="layout">Layout</string>
     <string name="settings">Einstellungen</string>
+
+    <string name="theme">Thema</string>
 </resources>

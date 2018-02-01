@@ -18,4 +18,5 @@
     <string name="yes">OUI</string>
     <string name="layout">Disposition</string>
     <string name="settings">Paramètres</string>
+    <string name="theme">Thème</string>
 </resources>

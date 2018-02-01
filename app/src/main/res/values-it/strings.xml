@@ -18,4 +18,5 @@
     <string name="yes">SI</string>
     <string name="layout">Disposizione</string>
     <string name="settings">Impostazioni</string>
+    <string name="theme">Tema</string>
 </resources>
