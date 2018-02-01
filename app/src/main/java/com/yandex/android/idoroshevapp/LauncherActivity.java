@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,24 +22,25 @@ public class LauncherActivity extends AppCompatActivity {
     private ItemStorage itemStorage = new ItemStorage();
     private FloatingActionButton fab;
     private LauncherAdapter mLauncherAdapter;
-
-    public LauncherActivity() {
-
-    }
+    private String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        isDefaultLayout = getIntent().getBooleanExtra("isDefaultLayout", true);
+        TAG = getString(R.string.launcher_activity);
+        isDefaultLayout = getIntent().getBooleanExtra(getString(R.string.is_default_layout), true);
         fab = findViewById(R.id.fab);
         createGridLayout();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemStorage.pushFront();
+                Item item = itemStorage.pushFront();
                 mLauncherAdapter.notifyDataSetChanged();
+                if (Log.isLoggable(TAG, Log.INFO)) {
+                    Log.i(TAG, getString(R.string.added_new_item) + item.getColor());
+                }
             }
         });
     }

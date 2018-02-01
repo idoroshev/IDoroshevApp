@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.yandex.android.idoroshevapp.data.Item;
@@ -21,19 +22,24 @@ public class ListActivity extends AppCompatActivity {
     private ItemStorage itemStorage = new ItemStorage();
     private FloatingActionButton fab;
     private ListAdapter mListAdapter;
+    private String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        TAG = getString(R.string.list_activity);
         fab = findViewById(R.id.fab);
         createLinearLayout();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemStorage.pushFront();
+                Item item = itemStorage.pushFront();
                 mListAdapter.notifyDataSetChanged();
+                if (Log.isLoggable(TAG, Log.INFO)) {
+                    Log.i(TAG, getString(R.string.added_new_item) + item.getColor());
+                }
             }
         });
     }

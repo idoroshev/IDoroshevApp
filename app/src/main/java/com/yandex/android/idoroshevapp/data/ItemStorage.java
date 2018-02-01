@@ -1,6 +1,7 @@
 package com.yandex.android.idoroshevapp.data;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,10 +25,13 @@ public class ItemStorage {
         }
     }
 
-    public void pushFront() {
+    @NonNull
+    public Item pushFront() {
         final Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-        data.addFirst(new Item(color, String.valueOf(color)));
+        Item item = new Item(color, String.valueOf(color));
+        data.addFirst(item);
+        return item;
     }
     public void regenerateData() {
         generateData();

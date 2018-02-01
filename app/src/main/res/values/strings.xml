@@ -18,4 +18,21 @@
     <string name="dense_landscape_icons">Landscape: 7 icons in row</string>
     <string name="delete_this_item">Delete this item?</string>
     <string name="yes">YES</string>
+    <string name="is_default_layout" translatable="false">isDefaultLayout</string>
+    <string name="launcher_activity" translatable="false">LauncherActivity</string>
+    <string name="added_new_item" translatable="false">Added new item: </string>
+    <string name="list_activity" translatable="false">ListActivity</string>
+    <string name="launcher_adapter" translatable="false">LauncherAdapter</string>
+    <string name="deleted_item" translatable="false">Deleted item: </string>
+    <string name="position" translatable="false">position </string>
+    <string name="color" translatable="false">color </string>
+    <string name="action_click" translatable="false">action click</string>
+    <string name="new_snackbar_being_shown" translatable="false">new snackbar being shown</string>
+    <string name="call_to_dismiss" translatable="false">call to dismiss()</string>
+    <string name="swipe" translatable="false">swipe</string>
+    <string name="timeout" translatable="false">timeout</string>
+    <string name="unknown" translatable="false">unknown</string>
+    <string name="snackbar_dismissed" translatable="false">Snackbar dismissed. </string>
+    <string name="cause" translatable="false">Cause: </string>
+    <string name="list_adapter" translatable="false">ListAdapter</string>
 </resources>
