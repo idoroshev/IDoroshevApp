@@ -4,18 +4,24 @@
                   tools:showIn="@layout/activity_settings_nav_view">
 
     <ListPreference
-        android:key="layout"
+        android:key="@string/layout_key"
         android:title="@string/layout"
         android:defaultValue="0"
         android:entries="@array/layout_entries"
         android:entryValues="@array/layout_values" />
 
     <ListPreference
-        android:key="theme"
+        android:key="@string/theme_key"
         android:title="@string/theme"
         android:defaultValue="0"
         android:entries="@array/theme_entries"
         android:entryValues="@array/theme_values" />
+
+    <SwitchPreference
+        android:key="@string/welcome_page_key"
+        android:title="@string/show_welcome_page_title"
+        android:summary="@string/show_welcome_page_summary"
+        android:defaultValue="false"/>
 
 
 </PreferenceScreen>

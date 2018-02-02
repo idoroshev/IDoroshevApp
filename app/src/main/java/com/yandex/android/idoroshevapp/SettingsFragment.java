@@ -2,6 +2,7 @@ package com.yandex.android.idoroshevapp;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -16,12 +17,21 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preferences);
     }
 
-    public static boolean hasAllSettings(Activity activity) {
+    public static boolean skipWelcomePage(Activity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean good;
         good = preferences.contains(SettingsActivity.KEY_LAYOUT);
         good &= preferences.contains(SettingsActivity.KEY_THEME);
+        good &= (!preferences.getBoolean(SettingsActivity.KEY_WELCOME_PAGE, false));
         return good;
+    }
+
+    public static void setWelcomePageSwitchValue(Activity activity, boolean value) {
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putBoolean(SettingsActivity.KEY_WELCOME_PAGE, value);
+        ed.apply();
+
     }
 
     public static int getApplicationTheme(Activity activity) {

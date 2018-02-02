@@ -16,11 +16,12 @@ public class WelcomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        if (SettingsFragment.hasAllSettings(this)) {
+        if (SettingsFragment.skipWelcomePage(this)) {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
             finish();
         } else {
+            SettingsFragment.setWelcomePageSwitchValue(this, false);
             setContentView(R.layout.activity_welcome_page);
         }
         FragmentManager fm = getSupportFragmentManager();

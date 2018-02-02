@@ -18,5 +18,8 @@
     <string name="yes">ДА</string>
     <string name="layout">Макет</string>
     <string name="settings">Настройки</string>
+    <string name="title_activity_settings">Настройки</string>
     <string name="theme">Тема</string>
+    <string name="show_welcome_page_title">Show welcome page</string>
+    <string name="show_welcome_page_summary">Show welcome page for next time app start</string>
 </resources>

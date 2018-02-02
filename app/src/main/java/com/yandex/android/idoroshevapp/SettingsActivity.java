@@ -24,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity
 
     public static final String KEY_THEME = "theme";
     public static final String KEY_LAYOUT = "layout";
+    public static final String KEY_WELCOME_PAGE = "welcome_page";
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -41,7 +42,6 @@ public class SettingsActivity extends AppCompatActivity
                 this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
