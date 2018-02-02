@@ -1,6 +1,7 @@
 package com.yandex.android.idoroshevapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -121,8 +122,8 @@ public class LauncherActivity extends AppCompatActivity
             case R.id.nav_settings:
                 intent = new Intent();
                 intent.setClass(this, SettingsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
                 startActivity(intent);
+                finish();
                 break;
             default:
                 break;

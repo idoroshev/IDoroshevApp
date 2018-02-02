@@ -1,6 +1,7 @@
 package com.yandex.android.idoroshevapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -37,6 +38,7 @@ public class ListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(SettingsFragment.getApplicationTheme(this));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_nav_view);
         TAG = getString(R.string.list_activity);
@@ -107,6 +109,7 @@ public class ListActivity extends AppCompatActivity
             case R.id.nav_settings:
                 intent.setClass(this, SettingsActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             default:
                 break;
