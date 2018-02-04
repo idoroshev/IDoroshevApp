@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandex.android.idoroshevapp.data.AppInfo;
+
+import java.util.Comparator;
+
 public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,12 @@ public class SettingsFragment extends PreferenceFragment {
         good &= preferences.contains(SettingsActivity.KEY_THEME);
         good &= (!preferences.getBoolean(SettingsActivity.KEY_WELCOME_PAGE, false));
         return good;
+    }
+
+    public static Comparator<AppInfo> getComparator(Activity activity) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        String code = preferences.getString(SettingsActivity.KEY_SORTING_TYPE, AppComparator.DEFAULT);
+        return AppComparator.getMethod(code);
     }
 
     public static void setWelcomePageSwitchValue(Activity activity, boolean value) {

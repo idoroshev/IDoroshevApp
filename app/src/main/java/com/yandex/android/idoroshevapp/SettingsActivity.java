@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity
     public static final String KEY_THEME = "theme";
     public static final String KEY_LAYOUT = "layout";
     public static final String KEY_WELCOME_PAGE = "welcome_page";
+    public static final String KEY_SORTING_TYPE = "sorting_type";
     private DrawerLayout mDrawerLayout;
 
     @Override

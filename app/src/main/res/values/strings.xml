@@ -47,4 +47,21 @@
     <string name="layout_key" translatable="false">layout</string>
     <string name="theme_key" translatable="false">theme</string>
     <string name="welcome_page_key" translatable="false">welcome_page</string>
+    <string name="delete">Delete</string>
+    <string name="launched">Launched: </string>
+
+    <string name="insert" translatable="false">insert</string>
+    <string name="update" translatable="false">update</string>
+    <string name="get" translatable="false">get</string>
+    <string name="remove" translatable="false">remove</string>
+    <string name="clear" translatable="false">clear</string>
+    <string name="failed_to" translatable="false">failed to</string>
+    <string name="or" translatable="false">or</string>
+    <string name="info">Info</string>
+
+    <string name="without_sort">Without sorting</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="reverse_alphabetical">Reverse alphabetical</string>
+    <string name="installation_date">By installation date</string>
+    <string name="by_frequency">By frequency</string>
 </resources>

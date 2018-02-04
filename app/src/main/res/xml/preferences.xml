@@ -23,5 +23,14 @@
         android:summary="@string/show_welcome_page_summary"
         android:defaultValue="false"/>
 
+    <ListPreference
+        android:key="sorting_type"
+        android:title="Sorting type"
+        android:summary="Choose sorting type for your apps"
+        android:defaultValue="0"
+        android:entries="@array/sorting_entries"
+        android:entryValues="@array/sorting_values"/>
+
+
 
 </PreferenceScreen>
