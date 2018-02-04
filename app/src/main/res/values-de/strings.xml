@@ -18,6 +18,18 @@
     <string name="yes">JA</string>
     <string name="layout">Layout</string>
     <string name="settings">Einstellungen</string>
-
+    <string name="title_activity_settings">Einstellungen</string>
     <string name="theme">Thema</string>
+
+
+    <string name="show_welcome_page_title">Show welcome page</string>
+    <string name="show_welcome_page_summary">Show welcome page for next time app start</string>
+    <string name="delete">Delete</string>
+    <string name="launched">Launched: </string>
+    <string name="info">Info</string>
+    <string name="without_sort">Without sorting</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="reverse_alphabetical">Reverse alphabetical</string>
+    <string name="installation_date">By installation date</string>
+    <string name="by_frequency">By frequency</string>
 </resources>

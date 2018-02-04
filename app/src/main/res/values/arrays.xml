@@ -19,4 +19,21 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+
+    <string-array name="sorting_entries" translatable="false">
+        <item>@string/without_sort</item>
+        <item>@string/alphabetical</item>
+        <item>@string/reverse_alphabetical</item>
+        <item>@string/installation_date</item>
+        <item>@string/by_frequency</item>
+    </string-array>
+
+    <string-array name="sorting_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
 </resources>

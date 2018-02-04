@@ -15,6 +15,10 @@ import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
 
 public class LayoutChoosingFragment extends Fragment {
 
+    Button mNextButton;
+    RadioButton mDefaultLayoutRadio;
+    RadioButton mDenseLayoutRadio;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,25 +28,27 @@ public class LayoutChoosingFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_layout_choosing, container, false);
         getActivity().setTheme(SettingsFragment.getApplicationTheme(getActivity()));
-        final Button mNextButton = view.findViewById(R.id.next_button);
-        final RadioButton mDefaultLayoutRadio = view.findViewById(R.id.default_layout_radio);
-        final RadioButton mDenseLayoutRadio = view.findViewById(R.id.dense_layout_radio);
+        mNextButton = view.findViewById(R.id.next_button);
+        mDefaultLayoutRadio = view.findViewById(R.id.default_layout_radio);
+        mDenseLayoutRadio = view.findViewById(R.id.dense_layout_radio);
+
+        if (SettingsFragment.getLayoutColumnsId(getActivity()) == Layout.getColumnsId("0")) {
+            setDefaultLayout();
+        } else {
+            setDenseLayout();
+        }
 
         mDefaultLayoutRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDefaultLayoutRadio.setChecked(true);
-                mDenseLayoutRadio.setChecked(false);
-                SettingsFragment.setLayout(Layout.DEFAULT, getActivity());
+                setDefaultLayout();
             }
         });
 
         mDenseLayoutRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDefaultLayoutRadio.setChecked(false);
-                mDenseLayoutRadio.setChecked(true);
-                SettingsFragment.setLayout(Layout.DENSE, getActivity());
+                setDenseLayout();
             }
         });
 
@@ -59,6 +65,18 @@ public class LayoutChoosingFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void setDefaultLayout() {
+        mDefaultLayoutRadio.setChecked(true);
+        mDenseLayoutRadio.setChecked(false);
+        SettingsFragment.setLayout(Layout.DEFAULT, getActivity());
+    }
+
+    private void setDenseLayout() {
+        mDefaultLayoutRadio.setChecked(false);
+        mDenseLayoutRadio.setChecked(true);
+        SettingsFragment.setLayout(Layout.DENSE, getActivity());
     }
 
 }
