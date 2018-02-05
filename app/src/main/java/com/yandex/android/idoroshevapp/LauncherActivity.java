@@ -1,6 +1,8 @@
 package com.yandex.android.idoroshevapp;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,11 +40,11 @@ import java.util.List;
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FloatingActionButton fab;
-    private LauncherAdapter mLauncherAdapter;
     private DrawerLayout mDrawerLayout;
     private String TAG;
-    private List<AppInfo> mData = new ArrayList<>();
+    private ArrayList<AppInfo> mData = new ArrayList<>();
     private final String PACKAGE = "package";
+    protected static RecyclerView.Adapter launcherAdapter;
 
     private BroadcastReceiver monitor = new BroadcastReceiver() {
         @Override
@@ -60,7 +62,8 @@ public class LauncherActivity extends AppCompatActivity
                         return;
                 }
                 Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-                mLauncherAdapter.notifyDataSetChanged();
+                if (launcherAdapter != null)
+                    launcherAdapter.notifyDataSetChanged();
             }
         }
 
@@ -120,9 +123,21 @@ public class LauncherActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        createGridLayout();
+
+        generateData();
+        Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
+        if (savedInstanceState == null) {
+            setGridLayout();
+        }
+
     }
 
+    private void setGridLayout() {
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        GridLayoutFragment fragment = GridLayoutFragment.newInstance(mData);
+        fragmentManager.beginTransaction().
+                replace(R.id.launcher_fragment_container, fragment).commit();
+    }
 
     @Override
     protected void onStart() {
@@ -152,22 +167,6 @@ public class LauncherActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void createGridLayout() {
-        final RecyclerView recyclerView = findViewById(R.id.launcher_content);
-        recyclerView.setHasFixedSize(true);
-        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
-        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
-
-        final int spanCount = getResources().getInteger(SettingsFragment.getLayoutColumnsId(this));
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
-        recyclerView.setLayoutManager(layoutManager);
-
-        generateData();
-        Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-        mLauncherAdapter = new LauncherAdapter(mData, getApplicationContext());
-        recyclerView.setAdapter(mLauncherAdapter);
     }
 
     private void generateData() {
@@ -202,9 +201,7 @@ public class LauncherActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_launcher:
-                intent = new Intent();
-                intent.setClass(this, LauncherActivity.class);
-                startActivity(intent);
+                setGridLayout();
                 break;
             case R.id.nav_list:
                 intent = new Intent();

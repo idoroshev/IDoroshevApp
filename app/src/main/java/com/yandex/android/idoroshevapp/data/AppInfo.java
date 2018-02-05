@@ -1,8 +1,11 @@
 package com.yandex.android.idoroshevapp.data;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 
-public class AppInfo {
+import java.io.Serializable;
+
+public class AppInfo implements Serializable {
     private String name;
     private String packageName;
     private long updateTime;
