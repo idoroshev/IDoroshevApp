@@ -43,9 +43,9 @@
 
     </RadioGroup>
 
-    <Button
+    <!--<Button
         android:id="@+id/next_button"
         style="@style/NextButtonStyle"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/std_margin"/>
+        android:layout_marginBottom="@dimen/std_margin"/>-->
 </LinearLayout>

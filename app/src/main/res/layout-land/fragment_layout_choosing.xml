@@ -69,10 +69,10 @@
     </LinearLayout>
 
 
-    <Button
+    <!--<Button
         android:id="@+id/next_button"
         style="@style/NextButtonStyle"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/std_margin"
-        android:layout_marginEnd="@dimen/std_margin"/>
+        android:layout_marginEnd="@dimen/std_margin"/>-->
 </LinearLayout>

@@ -29,10 +29,10 @@
             android:layout_below="@+id/imageView"/>
 
     </RelativeLayout>
-    <Button
+    <!--<Button
         android:id="@+id/next_button"
         style="@style/NextButtonStyle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/std_margin"/>
+        android:layout_marginBottom="@dimen/std_margin"/>-->
 </RelativeLayout>

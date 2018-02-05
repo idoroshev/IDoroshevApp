@@ -23,9 +23,7 @@ public class ThemeChoosingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
         View view = inflater.inflate(R.layout.fragment_theme_choosing, container, false);
-        final Button mNextButton = view.findViewById(R.id.next_button);
         mLightThemeRadio = view.findViewById(R.id.light_theme_radio);
         mDarkThemeRadio = view.findViewById(R.id.dark_theme_radio);
         mLightThemeRadioWrapper = view.findViewById(R.id.light_theme_radio_wrapper);
@@ -50,17 +48,6 @@ public class ThemeChoosingFragment extends Fragment {
                 setDarkTheme();
             }
         });
-
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                Fragment fragment = new LayoutChoosingFragment();
-                fm.beginTransaction().replace(R.id.welcome_page_fragment_container, fragment).
-                        addToBackStack("layout_choosing").commit();
-            }
-        });
-
 
         return view;
     }

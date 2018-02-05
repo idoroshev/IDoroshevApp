@@ -20,17 +20,6 @@ public class DescriptionFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_description, container, false);
 
-        final Button mNextButton = view.findViewById(R.id.next_button);
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                Fragment fragment = new ThemeChoosingFragment();
-                fm.beginTransaction().replace(R.id.welcome_page_fragment_container, fragment).
-                        addToBackStack("theme_choosing").commit();
-            }
-        });
-
         return view;
     }
 

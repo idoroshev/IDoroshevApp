@@ -1,6 +1,7 @@
 package com.yandex.android.idoroshevapp;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,6 @@ import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
 
 public class LayoutChoosingFragment extends Fragment {
 
-    Button mNextButton;
     RadioButton mDefaultLayoutRadio;
     RadioButton mDenseLayoutRadio;
 
@@ -28,7 +28,6 @@ public class LayoutChoosingFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_layout_choosing, container, false);
         getActivity().setTheme(SettingsFragment.getApplicationTheme(getActivity()));
-        mNextButton = view.findViewById(R.id.next_button);
         mDefaultLayoutRadio = view.findViewById(R.id.default_layout_radio);
         mDenseLayoutRadio = view.findViewById(R.id.dense_layout_radio);
 
@@ -52,19 +51,13 @@ public class LayoutChoosingFragment extends Fragment {
             }
         });
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!SettingsFragment.hasLayout(getActivity())) {
-                    SettingsFragment.setLayout(Layout.DEFAULT, getActivity());
-                }
-                Intent intent = new Intent(view.getContext(), LauncherActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        | Intent.FLAG_ACTIVITY_NEW_TASK );
-                getContext().startActivity(intent);
-            }
-        });
         return view;
+    }
+
+    public static void setLayout(Activity activity) {
+        if (!SettingsFragment.hasLayout(activity)) {
+            SettingsFragment.setLayout(Layout.DEFAULT, activity);
+        }
     }
 
     private void setDefaultLayout() {
