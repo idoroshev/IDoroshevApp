@@ -49,8 +49,6 @@ public class LauncherActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            Log.d("TAGG", launcherAdapter  == null ? "gyggygy" : "trtrtr");
-            Toast.makeText(LauncherActivity.this, "Test", Toast.LENGTH_LONG).show();
             if (action != null) {
                 switch (action) {
                     case Intent.ACTION_PACKAGE_ADDED:
@@ -63,7 +61,6 @@ public class LauncherActivity extends AppCompatActivity
                         break;
                 }
                 Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-                Log.d("TAGG", launcherAdapter  == null ? "mdaa" : "mmm");
                 if (launcherAdapter != null) {
 
                     launcherAdapter.notifyDataSetChanged();
@@ -136,7 +133,6 @@ public class LauncherActivity extends AppCompatActivity
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         intentFilter.addDataScheme(PACKAGE);
-        Log.d("TAGG", launcherAdapter  == null ? "uuuu" : "yyyy");
         registerReceiver(monitor, intentFilter);
 
     }
@@ -144,7 +140,7 @@ public class LauncherActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(monitor);
+        //unregisterReceiver(monitor);
         for (AppInfo appInfo : mData) {
             Database.insertOrUpdate(appInfo);
         }
