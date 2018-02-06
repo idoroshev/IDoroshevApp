@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -47,44 +48,27 @@ public class LauncherActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            Log.d("TAGG", launcherAdapter  == null ? "gyggygy" : "trtrtr");
             if (action != null) {
                 switch (action) {
                     case Intent.ACTION_PACKAGE_ADDED:
-                        appAdded(context, intent);
+                        mData = DataStorage.appAdded(LauncherActivity.this, intent);
                         break;
                     case Intent.ACTION_PACKAGE_REMOVED:
-                        appRemoved(context, intent);
+                        mData = DataStorage.appRemoved(LauncherActivity.this, intent);
                         break;
                     default:
-                        return;
+                        break;
                 }
                 Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-                if (launcherAdapter != null)
+                Log.d("TAGG", launcherAdapter  == null ? "mdaa" : "mmm");
+                if (launcherAdapter != null) {
+
                     launcherAdapter.notifyDataSetChanged();
-            }
-        }
-
-        private void appAdded(final Context context, final Intent intent) {
-            String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
-            try {
-                AppInfo appInfo = DataStorage.getAppInfoFromPackageName(packageName, LauncherActivity.this);
-                mData.add(appInfo);
-                Database.insertOrUpdate(appInfo);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        private void appRemoved(final Context context, final Intent intent) {
-            for (AppInfo appInfo : mData) {
-                String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
-                if (packageName.equals(appInfo.getPackageName())) {
-                    mData.remove(appInfo);
-                    Database.remove(appInfo);
-                    break;
                 }
             }
         }
+
     };
 
     @Override
@@ -148,7 +132,9 @@ public class LauncherActivity extends AppCompatActivity
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         intentFilter.addDataScheme(PACKAGE);
+        Log.d("TAGG", launcherAdapter  == null ? "uuuu" : "yyyy");
         registerReceiver(monitor, intentFilter);
 
     }

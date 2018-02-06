@@ -1,10 +1,15 @@
 package com.yandex.android.idoroshevapp.data;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+
+import com.yandex.android.idoroshevapp.launcher.LauncherActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +47,40 @@ public class DataStorage {
     public static ArrayList<AppInfo> getData() {
         return data;
     }
+
+    public static ArrayList<AppInfo> add(AppInfo appInfo) {
+        data.add(appInfo);
+        return data;
+    }
+
+    public static ArrayList<AppInfo> remove(AppInfo appInfo) {
+        data.remove(appInfo);
+        return data;
+    }
+
+    public static ArrayList<AppInfo> appAdded(final Activity activity, final Intent intent) {
+        String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
+        try {
+            AppInfo appInfo = DataStorage.getAppInfoFromPackageName(packageName, activity);
+            DataStorage.add(appInfo);
+            Database.insertOrUpdate(appInfo);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static ArrayList<AppInfo> appRemoved(final Activity activity, final Intent intent) {
+        for (AppInfo appInfo : data) {
+            String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
+            if (packageName.equals(appInfo.getPackageName())) {
+                DataStorage.remove(appInfo);
+                Database.remove(appInfo);
+                break;
+            }
+        }
+        return data;
+    }
+
 
 }
