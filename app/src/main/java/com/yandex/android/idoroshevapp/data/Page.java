@@ -1,10 +1,10 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.data;
 
 public class Page {
     private int layout;
     private int title;
 
-    Page(int layout, int title) {
+    public Page(int layout, int title) {
         this.layout = layout;
         this.title = title;
     }

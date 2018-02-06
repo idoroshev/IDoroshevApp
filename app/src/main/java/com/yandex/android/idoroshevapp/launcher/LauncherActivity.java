@@ -1,8 +1,5 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.launcher;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,19 +16,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.yandex.android.idoroshevapp.MainActivity;
+import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.settings.SettingsActivity;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.Database;
-import com.yandex.android.idoroshevapp.data.Item;
-import com.yandex.android.idoroshevapp.data.ItemStorage;
-import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
-import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,6 +134,13 @@ public class LauncherActivity extends AppCompatActivity
                 replace(R.id.launcher_fragment_container, fragment).commit();
     }
 
+    private void setLinearLayout() {
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        LinearLayoutFragment fragment = LinearLayoutFragment.newInstance(mData);
+        fragmentManager.beginTransaction().
+                replace(R.id.launcher_fragment_container, fragment).commit();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -204,10 +206,7 @@ public class LauncherActivity extends AppCompatActivity
                 setGridLayout();
                 break;
             case R.id.nav_list:
-                intent = new Intent();
-                intent.setClass(this, ListActivity.class);
-                startActivity(intent);
-                finish();
+                setLinearLayout();
                 break;
             case R.id.nav_settings:
                 intent = new Intent();

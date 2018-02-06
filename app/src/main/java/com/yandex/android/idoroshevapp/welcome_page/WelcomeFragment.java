@@ -1,5 +1,4 @@
-package com.yandex.android.idoroshevapp;
-
+package com.yandex.android.idoroshevapp.welcome_page;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.yandex.android.idoroshevapp.R;
 
-public class DescriptionFragment extends Fragment {
-
+public class WelcomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_description, container, false);
+        View view = inflater.inflate(R.layout.fragment_welcome, container, false);
 
         return view;
     }

@@ -23,7 +23,7 @@
             android:name="io.fabric.ApiKey"
             android:value="846c39be63f29726b2985c5f45d9051ba9e5647f"/>
 
-        <activity android:name=".WelcomePageActivity">
+        <activity android:name=".welcome_page.WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,13 +31,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LauncherActivity">
+            android:name=".launcher.LauncherActivity">
         </activity>
         <activity
-            android:name=".ListActivity">
-        </activity>
-        <activity
-            android:name=".SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings">
         </activity>
     </application>

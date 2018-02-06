@@ -1,16 +1,17 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.welcome_page;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+
+import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+import com.yandex.android.idoroshevapp.settings.Theme;
 
 public class ThemeChoosingFragment extends Fragment {
 

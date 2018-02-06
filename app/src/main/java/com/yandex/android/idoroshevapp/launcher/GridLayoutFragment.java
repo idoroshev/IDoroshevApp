@@ -1,31 +1,26 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.launcher;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
-import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
-import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class GridLayoutFragment extends Fragment {
 
-    private LauncherAdapter mLauncherAdapter;
+    private GridAdapter mGridAdapter;
     private Activity mActivity;
     private ArrayList<AppInfo> mData;
     private static final String DATA_KEY = "data";
@@ -35,7 +30,6 @@ public class GridLayoutFragment extends Fragment {
         GridLayoutFragment fragment = new GridLayoutFragment();
         Bundle args = new Bundle();
         int i = 0;
-        Log.d("SUKA", String.valueOf(data.size()));
         for (AppInfo appInfo : data) {
             args.putSerializable(DATA_KEY + (i++), appInfo);
         }
@@ -69,7 +63,6 @@ public class GridLayoutFragment extends Fragment {
 
     private void createGridLayout() {
         final RecyclerView recyclerView = view.findViewById(R.id.launcher_content);
-        recyclerView.setHasFixedSize(true);
         final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
         recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
 
@@ -78,10 +71,9 @@ public class GridLayoutFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        Log.d("BLYAAAA", "PIZDA");
-        mLauncherAdapter = new LauncherAdapter(mData, mActivity);
-        recyclerView.setAdapter(mLauncherAdapter);
-        LauncherActivity.launcherAdapter = mLauncherAdapter;
+        mGridAdapter = new GridAdapter(mData, mActivity);
+        recyclerView.setAdapter(mGridAdapter);
+        LauncherActivity.launcherAdapter = mGridAdapter;
     }
 
 }

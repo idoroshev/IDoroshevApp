@@ -1,8 +1,6 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.settings;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -12,9 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.yandex.android.idoroshevapp.MainActivity;
+import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.launcher.LauncherActivity;
 
 
 public class SettingsActivity extends AppCompatActivity
@@ -64,7 +65,6 @@ public class SettingsActivity extends AppCompatActivity
                 .commit();
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -78,7 +78,7 @@ public class SettingsActivity extends AppCompatActivity
                 break;
             case R.id.nav_list:
                 intent = new Intent();
-                intent.setClass(this, ListActivity.class);
+                intent.setClass(this, LauncherActivity.class);
                 startActivity(intent);
                 finish();
                 break;

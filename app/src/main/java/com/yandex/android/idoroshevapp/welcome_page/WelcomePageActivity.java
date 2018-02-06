@@ -1,4 +1,4 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.welcome_page;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
+import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.data.Page;
+import com.yandex.android.idoroshevapp.launcher.LauncherActivity;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;

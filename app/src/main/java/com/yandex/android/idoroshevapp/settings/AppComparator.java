@@ -1,6 +1,4 @@
-package com.yandex.android.idoroshevapp;
-
-import android.util.Log;
+package com.yandex.android.idoroshevapp.settings;
 
 import com.yandex.android.idoroshevapp.data.AppInfo;
 
