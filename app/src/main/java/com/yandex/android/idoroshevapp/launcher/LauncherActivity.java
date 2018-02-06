@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -23,6 +25,7 @@ import android.view.View;
 
 import com.yandex.android.idoroshevapp.MainActivity;
 import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.settings.SettingsActivity;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.Database;
@@ -34,7 +37,6 @@ import java.util.List;
 
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private FloatingActionButton fab;
     private DrawerLayout mDrawerLayout;
     private String TAG;
     private ArrayList<AppInfo> mData = new ArrayList<>();
@@ -65,7 +67,7 @@ public class LauncherActivity extends AppCompatActivity
         private void appAdded(final Context context, final Intent intent) {
             String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
             try {
-                AppInfo appInfo = getAppInfoFromPackageName(packageName);
+                AppInfo appInfo = DataStorage.getAppInfoFromPackageName(packageName, LauncherActivity.this);
                 mData.add(appInfo);
                 Database.insertOrUpdate(appInfo);
             } catch (PackageManager.NameNotFoundException e) {
@@ -92,7 +94,6 @@ public class LauncherActivity extends AppCompatActivity
         setContentView(R.layout.activity_launcher_nav_view);
         Database.initialize(this);
         TAG = getString(R.string.launcher_activity);
-        fab = findViewById(R.id.fab);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -119,7 +120,7 @@ public class LauncherActivity extends AppCompatActivity
             }
         });
 
-        generateData();
+        mData = DataStorage.generateData(this);
         Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
         if (savedInstanceState == null) {
             setGridLayout();
@@ -169,31 +170,6 @@ public class LauncherActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void generateData() {
-        PackageManager packageManager = getPackageManager();
-        List<ApplicationInfo> applicationInfoList = packageManager.getInstalledApplications(0);
-        for (ApplicationInfo applicationInfo : applicationInfoList) {
-            try {
-                if (packageManager.getLaunchIntentForPackage(applicationInfo.packageName) != null) {
-                    AppInfo appInfo = getAppInfoFromPackageName(applicationInfo.packageName);
-                    if (!mData.contains(appInfo)) {
-                        mData.add(appInfo);
-                    }
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private AppInfo getAppInfoFromPackageName(final String packageName) throws PackageManager.NameNotFoundException {
-        final PackageManager packageManager = getPackageManager();
-        final String name = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA));
-        final long updatedTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime;
-        final Drawable icon = packageManager.getApplicationIcon(packageName);
-        return new AppInfo(name, packageName, updatedTime, icon);
     }
 
     @Override

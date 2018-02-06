@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
+import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 import java.util.ArrayList;
@@ -28,12 +29,6 @@ public class LinearLayoutFragment extends Fragment {
 
     public static LinearLayoutFragment newInstance(final ArrayList<AppInfo> data) {
         LinearLayoutFragment fragment = new LinearLayoutFragment();
-        Bundle args = new Bundle();
-        int i = 0;
-        for (AppInfo appInfo : data) {
-            args.putSerializable(DATA_KEY + (i++), appInfo);
-        }
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -42,11 +37,7 @@ public class LinearLayoutFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        mData = new ArrayList<>();
-        Bundle bundle = getArguments();
-        for (String key : bundle.keySet()) {
-            mData.add((AppInfo) bundle.getSerializable(key));
-        }
+        mData = DataStorage.getData();
         mActivity = getActivity();
         Collections.sort(mData, SettingsFragment.getComparator(mActivity));
     }

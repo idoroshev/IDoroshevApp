@@ -2,6 +2,8 @@ package com.yandex.android.idoroshevapp.launcher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -48,7 +50,7 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void bindGridView(@NonNull final Holder.GridHolder gridHolder, final int position) {
         final View imageView = gridHolder.getImageView();
         final TextView textView = gridHolder.getTextView();
-        imageView.setBackground(mData.get(position).getIcon());
+        imageView.setBackground(new BitmapDrawable(context.getResources(), mData.get(position).getIcon()));
         textView.setText(mData.get(position).getName());
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +79,7 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void showPopUpMenu(final View view, final int position) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         popupMenu.inflate(R.menu.context_menu);
-        String title = (String) popupMenu.getMenu().findItem(R.id.launch_count).getTitle();
+        String title = (String) popupMenu.getMenu().findItem(R.id.launch_count).getTitle() + " ";
         title += mData.get(position).getLaunched();
         popupMenu.getMenu().findItem(R.id.launch_count).setTitle(title);
 

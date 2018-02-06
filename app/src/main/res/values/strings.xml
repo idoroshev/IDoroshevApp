@@ -66,4 +66,6 @@
     <string name="by_frequency">By frequency</string>
     <string name="short_app_name" translatable="false">IDoroshev</string>
     <string name="get_started">Get started!</string>
+    <string name="grid_layout">Grid Layout</string>
+    <string name="linear_layout">Linear Layout</string>
 </resources>

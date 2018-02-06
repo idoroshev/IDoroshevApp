@@ -3,6 +3,7 @@ package com.yandex.android.idoroshevapp.launcher;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
+import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 import java.util.ArrayList;
@@ -28,12 +30,6 @@ public class GridLayoutFragment extends Fragment {
 
     public static GridLayoutFragment newInstance(final ArrayList<AppInfo> data) {
         GridLayoutFragment fragment = new GridLayoutFragment();
-        Bundle args = new Bundle();
-        int i = 0;
-        for (AppInfo appInfo : data) {
-            args.putSerializable(DATA_KEY + (i++), appInfo);
-        }
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -42,11 +38,7 @@ public class GridLayoutFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        mData = new ArrayList<>();
-        Bundle bundle = getArguments();
-        for (String key : bundle.keySet()) {
-            mData.add((AppInfo) bundle.getSerializable(key));
-        }
+        mData = DataStorage.getData();
         mActivity = getActivity();
         Collections.sort(mData, SettingsFragment.getComparator(mActivity));
     }
