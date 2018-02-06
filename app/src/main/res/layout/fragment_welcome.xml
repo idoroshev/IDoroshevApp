@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            app:srcCompat="@mipmap/circlepic"
+            app:srcCompat="@mipmap/ic_profile_round"
             style="@style/CircleImageStyle"
             android:layout_marginBottom="@dimen/std_margin"
             android:layout_centerHorizontal="true"/>
