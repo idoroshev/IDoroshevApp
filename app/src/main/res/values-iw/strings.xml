@@ -23,16 +23,18 @@
 
 
     <string name = "show_welcome_page_title"> הצג את דף הפתיחה </string>
-         <string name = "show_welcome_page_summary"> הצג את דף הפתיחה עבור ההשקה הבאה של האפליקציה </string>
-         <string name = "delete"> למחוק </string>
-         <string name = "launched"> נכתב: </string>
-         <string name = "info"> מידע </string>
-         <string name = "without_sort"> ללא מיון </string>
-         <string name = "alphabetical"> בסדר אלפביתי </string>
-         <string name = "reverse_alphabetical"> הפוך אלפביתי </string>
-         <string name="installation_date"> לאחר תאריך ההתקנה </string>
-         <string name = "by_frequency"> בתדירות </string>
-         <string name = "get_started"> התחל! </string>
-         <string name = "grid_layout"> פריסת רשת </string>
-         <string name = "linear_layout"> פריסה ליניארית </string>
+     <string name = "show_welcome_page_summary"> הצג את דף הפתיחה עבור ההשקה הבאה של האפליקציה </string>
+     <string name = "delete"> למחוק </string>
+     <string name = "launched"> נכתב: </string>
+     <string name = "info"> מידע </string>
+     <string name = "without_sort"> ללא מיון </string>
+     <string name = "alphabetical"> בסדר אלפביתי </string>
+     <string name = "reverse_alphabetical"> הפוך אלפביתי </string>
+     <string name="installation_date"> לאחר תאריך ההתקנה </string>
+     <string name = "by_frequency"> בתדירות </string>
+     <string name = "get_started"> התחל! </string>
+     <string name = "grid_layout"> פריסת רשת </string>
+     <string name = "linear_layout"> פריסה ליניארית </string>
+    <string name="sorting_type">סוג מיון</string>
+    <string name="choose_sorting_type">בחר סוג מיון עבור היישומים שלך</string>
 </resources>

@@ -36,4 +36,6 @@
      <string name = "get_started"> Начать работу! </string>
      <string name = "grid_layout"> Сетка </string>
      <string name = "linear_layout"> Список </string>
+    <string name="sorting_type">Тип сортировки</string>
+    <string name="choose_sorting_type">Выберите тип сортировки ваших приложений</string>
 </resources>

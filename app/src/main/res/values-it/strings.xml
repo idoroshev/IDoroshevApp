@@ -36,4 +36,6 @@
      <string name = "get_started"> Inizia! </string>
      <string name = "grid_layout"> Grid Layout </string>
      <string name = "linear_layout"> Layout lineare </string>
+    <string name="sorting_type">Tipo di ordinamento</string>
+    <string name="choose_sorting_type">Scegli il tipo di ordinamento per le tue app</string>
 </resources>

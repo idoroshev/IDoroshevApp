@@ -68,4 +68,6 @@
     <string name="get_started">Get started!</string>
     <string name="grid_layout">Grid Layout</string>
     <string name="linear_layout">Linear Layout</string>
+    <string name="sorting_type">Sorting type</string>
+    <string name="choose_sorting_type">Choose sorting type for your apps</string>
 </resources>

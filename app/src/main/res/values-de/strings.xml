@@ -35,4 +35,6 @@
      <string name = "get_started"> Starten Sie! </string>
      <string name = "grid_layout"> Gitterlayout </string>
      <string name = "linear_layout"> Lineares Layout </string>
+    <string name="sorting_type">Sortierart</string>
+    <string name="choose_sorting_type">Wählen Sie den Sortiertyp für Ihre apps</string>
 </resources>

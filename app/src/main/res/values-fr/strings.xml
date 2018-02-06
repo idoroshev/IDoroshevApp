@@ -36,4 +36,7 @@
     <string name = "get_started"> Commencez! </string>
     <string name = "grid_layout"> Disposition de la grille </string>
     <string name = "linear_layout"> Disposition linéaire </string>
+    <string name="sorting_type">Type de tri</string>
+    <string name="choose_sorting_type">Choisissez le type de tri pour vos applications</string>
+
 </resources>
