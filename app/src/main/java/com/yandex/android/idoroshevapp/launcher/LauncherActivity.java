@@ -23,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yandex.android.idoroshevapp.MainActivity;
 import com.yandex.android.idoroshevapp.R;
@@ -49,6 +50,7 @@ public class LauncherActivity extends AppCompatActivity
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             Log.d("TAGG", launcherAdapter  == null ? "gyggygy" : "trtrtr");
+            Toast.makeText(LauncherActivity.this, "Test", Toast.LENGTH_LONG).show();
             if (action != null) {
                 switch (action) {
                     case Intent.ACTION_PACKAGE_ADDED:
