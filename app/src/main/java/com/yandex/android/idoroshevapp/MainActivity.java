@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.crashlytics.android.Crashlytics;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
+
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;

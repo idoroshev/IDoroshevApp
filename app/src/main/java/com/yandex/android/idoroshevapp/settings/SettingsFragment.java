@@ -1,15 +1,12 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.settings;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
+import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 
 import java.util.Comparator;

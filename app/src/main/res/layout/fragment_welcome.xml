@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yandex.android.idoroshevapp.WelcomePageActivity">
+    tools:context="com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            app:srcCompat="@mipmap/circlepic"
+            app:srcCompat="@mipmap/ic_profile_round"
             style="@style/CircleImageStyle"
             android:layout_marginBottom="@dimen/std_margin"
             android:layout_centerHorizontal="true"/>
@@ -40,10 +40,10 @@
             android:layout_below="@+id/app_name"/>
 
     </RelativeLayout>
-    <Button
+    <!--<Button
         android:id="@+id/next_button"
         style="@style/NextButtonStyle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/std_margin"/>
+        android:layout_marginBottom="@dimen/std_margin"/>-->
 </RelativeLayout>

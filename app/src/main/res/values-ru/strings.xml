@@ -23,14 +23,19 @@
 
 
 
-    <string name="show_welcome_page_title">Show welcome page</string>
-    <string name="show_welcome_page_summary">Show welcome page for next time app start</string>
-    <string name="delete">Delete</string>
-    <string name="launched">Launched: </string>
-    <string name="info">Info</string>
-    <string name="without_sort">Without sorting</string>
-    <string name="alphabetical">Alphabetical</string>
-    <string name="reverse_alphabetical">Reverse alphabetical</string>
-    <string name="installation_date">By installation date</string>
-    <string name="by_frequency">By frequency</string>
+    <string name = "show_welcome_page_title"> Показать страницу приветствия </string>
+     <string name = "show_welcome_page_summary"> Показать страницу приветствия для следующего запуска приложения </string>
+     <string name = "delete"> Удалить </string>
+     <string name = "launched"> Запущен: </string>
+     <string name = "info"> Информация </string>
+     <string name = "without_sort"> Без сортировки </string>
+     <string name = "alphabetical"> Алфавитный </string>
+     <string name = "reverse_alphabetical"> Обратный алфавитный </string>
+     <string name = "installation_date"> По дате установки </string>
+     <string name = "by_frequency"> По частоте </string>
+     <string name = "get_started"> Начать работу! </string>
+     <string name = "grid_layout"> Сетка </string>
+     <string name = "linear_layout"> Список </string>
+    <string name="sorting_type">Тип сортировки</string>
+    <string name="choose_sorting_type">Выберите тип сортировки ваших приложений</string>
 </resources>

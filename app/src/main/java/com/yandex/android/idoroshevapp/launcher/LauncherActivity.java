@@ -1,12 +1,13 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.launcher;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -17,19 +18,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.yandex.android.idoroshevapp.MainActivity;
+import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.data.DataStorage;
+import com.yandex.android.idoroshevapp.settings.SettingsActivity;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.Database;
-import com.yandex.android.idoroshevapp.data.Item;
-import com.yandex.android.idoroshevapp.data.ItemStorage;
-import com.yandex.android.idoroshevapp.launcher.LauncherAdapter;
-import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +39,11 @@ import java.util.List;
 
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private FloatingActionButton fab;
-    private LauncherAdapter mLauncherAdapter;
     private DrawerLayout mDrawerLayout;
     private String TAG;
-    private List<AppInfo> mData = new ArrayList<>();
+    private ArrayList<AppInfo> mData = new ArrayList<>();
     private final String PACKAGE = "package";
+    protected static RecyclerView.Adapter launcherAdapter;
 
     private BroadcastReceiver monitor = new BroadcastReceiver() {
         @Override
@@ -51,40 +52,22 @@ public class LauncherActivity extends AppCompatActivity
             if (action != null) {
                 switch (action) {
                     case Intent.ACTION_PACKAGE_ADDED:
-                        appAdded(context, intent);
+                        mData = DataStorage.appAdded(LauncherActivity.this, intent);
                         break;
                     case Intent.ACTION_PACKAGE_REMOVED:
-                        appRemoved(context, intent);
+                        mData = DataStorage.appRemoved(LauncherActivity.this, intent);
                         break;
                     default:
-                        return;
+                        break;
                 }
                 Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-                mLauncherAdapter.notifyDataSetChanged();
-            }
-        }
+                if (launcherAdapter != null) {
 
-        private void appAdded(final Context context, final Intent intent) {
-            String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
-            try {
-                AppInfo appInfo = getAppInfoFromPackageName(packageName);
-                mData.add(appInfo);
-                Database.insertOrUpdate(appInfo);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        private void appRemoved(final Context context, final Intent intent) {
-            for (AppInfo appInfo : mData) {
-                String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
-                if (packageName.equals(appInfo.getPackageName())) {
-                    mData.remove(appInfo);
-                    Database.remove(appInfo);
-                    break;
+                    launcherAdapter.notifyDataSetChanged();
                 }
             }
         }
+
     };
 
     @Override
@@ -94,7 +77,6 @@ public class LauncherActivity extends AppCompatActivity
         setContentView(R.layout.activity_launcher_nav_view);
         Database.initialize(this);
         TAG = getString(R.string.launcher_activity);
-        fab = findViewById(R.id.fab);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -120,9 +102,28 @@ public class LauncherActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        createGridLayout();
+
+        mData = DataStorage.generateData(this);
+        Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
+        if (savedInstanceState == null) {
+            setGridLayout();
+        }
+
     }
 
+    private void setGridLayout() {
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        GridLayoutFragment fragment = GridLayoutFragment.newInstance(mData);
+        fragmentManager.beginTransaction().
+                replace(R.id.launcher_fragment_container, fragment).commit();
+    }
+
+    private void setLinearLayout() {
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        LinearLayoutFragment fragment = LinearLayoutFragment.newInstance(mData);
+        fragmentManager.beginTransaction().
+                replace(R.id.launcher_fragment_container, fragment).commit();
+    }
 
     @Override
     protected void onStart() {
@@ -130,6 +131,7 @@ public class LauncherActivity extends AppCompatActivity
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         intentFilter.addDataScheme(PACKAGE);
         registerReceiver(monitor, intentFilter);
 
@@ -138,7 +140,7 @@ public class LauncherActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(monitor);
+        //unregisterReceiver(monitor);
         for (AppInfo appInfo : mData) {
             Database.insertOrUpdate(appInfo);
         }
@@ -154,47 +156,6 @@ public class LauncherActivity extends AppCompatActivity
         }
     }
 
-    private void createGridLayout() {
-        final RecyclerView recyclerView = findViewById(R.id.launcher_content);
-        recyclerView.setHasFixedSize(true);
-        final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
-        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
-
-        final int spanCount = getResources().getInteger(SettingsFragment.getLayoutColumnsId(this));
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, spanCount);
-        recyclerView.setLayoutManager(layoutManager);
-
-        generateData();
-        Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-        mLauncherAdapter = new LauncherAdapter(mData, getApplicationContext());
-        recyclerView.setAdapter(mLauncherAdapter);
-    }
-
-    private void generateData() {
-        PackageManager packageManager = getPackageManager();
-        List<ApplicationInfo> applicationInfoList = packageManager.getInstalledApplications(0);
-        for (ApplicationInfo applicationInfo : applicationInfoList) {
-            try {
-                if (packageManager.getLaunchIntentForPackage(applicationInfo.packageName) != null) {
-                    AppInfo appInfo = getAppInfoFromPackageName(applicationInfo.packageName);
-                    if (!mData.contains(appInfo)) {
-                        mData.add(appInfo);
-                    }
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private AppInfo getAppInfoFromPackageName(final String packageName) throws PackageManager.NameNotFoundException {
-        final PackageManager packageManager = getPackageManager();
-        final String name = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA));
-        final long updatedTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime;
-        final Drawable icon = packageManager.getApplicationIcon(packageName);
-        return new AppInfo(name, packageName, updatedTime, icon);
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -202,15 +163,10 @@ public class LauncherActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_launcher:
-                intent = new Intent();
-                intent.setClass(this, LauncherActivity.class);
-                startActivity(intent);
+                setGridLayout();
                 break;
             case R.id.nav_list:
-                intent = new Intent();
-                intent.setClass(this, ListActivity.class);
-                startActivity(intent);
-                finish();
+                setLinearLayout();
                 break;
             case R.id.nav_settings:
                 intent = new Intent();

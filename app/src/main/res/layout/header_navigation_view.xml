@@ -15,7 +15,7 @@
         android:layout_width="@dimen/small_pic"
         android:layout_height="@dimen/small_pic"
         android:paddingTop="@dimen/small_padding"
-        app:srcCompat="@mipmap/circlepic"
+        app:srcCompat="@mipmap/ic_profile_round"
         />
 
     <TextView

@@ -23,14 +23,20 @@
 
 
 
-    <string name="show_welcome_page_title">Show welcome page</string>
-    <string name="show_welcome_page_summary">Show welcome page for next time app start</string>
-    <string name="delete">Delete</string>
-    <string name="launched">Launched: </string>
-    <string name="info">Info</string>
-    <string name="without_sort">Without sorting</string>
-    <string name="alphabetical">Alphabetical</string>
-    <string name="reverse_alphabetical">Reverse alphabetical</string>
-    <string name="installation_date">By installation date</string>
-    <string name="by_frequency">By frequency</string>
+    <string name = "show_welcome_page_title"> Afficher la page daccueil </string>
+    <string name = "show_welcome_page_summary"> Afficher la page daccueil pour la prochaine utilisation de lapplication </string>
+    <string name = "delete"> Supprimer </string>
+    <string name = "launched"> Lancé: </string>
+    <string name = "info"> Info </string>
+    <string name = "without_sort"> Sans trier </string>
+    <string name = "alphabetical"> Alphabétique </string>
+    <string name = "reverse_alphabetical"> Inverser alphabétiquement </string>
+    <string name = "installation_date"> Par date dinstallation </string>
+    <string name = "by_frequency"> Par fréquence </string>
+    <string name = "get_started"> Commencez! </string>
+    <string name = "grid_layout"> Disposition de la grille </string>
+    <string name = "linear_layout"> Disposition linéaire </string>
+    <string name="sorting_type">Type de tri</string>
+    <string name="choose_sorting_type">Choisissez le type de tri pour vos applications</string>
+
 </resources>

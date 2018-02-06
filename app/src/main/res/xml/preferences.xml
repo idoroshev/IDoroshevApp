@@ -25,8 +25,8 @@
 
     <ListPreference
         android:key="sorting_type"
-        android:title="Sorting type"
-        android:summary="Choose sorting type for your apps"
+        android:title="@string/sorting_type"
+        android:summary="@string/choose_sorting_type"
         android:defaultValue="0"
         android:entries="@array/sorting_entries"
         android:entryValues="@array/sorting_values"/>

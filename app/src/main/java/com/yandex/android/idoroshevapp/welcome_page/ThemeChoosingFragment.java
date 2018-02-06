@@ -1,16 +1,17 @@
-package com.yandex.android.idoroshevapp;
+package com.yandex.android.idoroshevapp.welcome_page;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+
+import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+import com.yandex.android.idoroshevapp.settings.Theme;
 
 public class ThemeChoosingFragment extends Fragment {
 
@@ -23,9 +24,7 @@ public class ThemeChoosingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
         View view = inflater.inflate(R.layout.fragment_theme_choosing, container, false);
-        final Button mNextButton = view.findViewById(R.id.next_button);
         mLightThemeRadio = view.findViewById(R.id.light_theme_radio);
         mDarkThemeRadio = view.findViewById(R.id.dark_theme_radio);
         mLightThemeRadioWrapper = view.findViewById(R.id.light_theme_radio_wrapper);
@@ -50,17 +49,6 @@ public class ThemeChoosingFragment extends Fragment {
                 setDarkTheme();
             }
         });
-
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                Fragment fragment = new LayoutChoosingFragment();
-                fm.beginTransaction().replace(R.id.welcome_page_fragment_container, fragment).
-                        addToBackStack("layout_choosing").commit();
-            }
-        });
-
 
         return view;
     }

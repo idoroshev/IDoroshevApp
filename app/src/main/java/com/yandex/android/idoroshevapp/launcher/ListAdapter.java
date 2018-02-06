@@ -2,28 +2,25 @@ package com.yandex.android.idoroshevapp.launcher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.yandex.android.idoroshevapp.LauncherActivity;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.Database;
 
 import java.util.List;
 
-public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     @NonNull
@@ -32,28 +29,30 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final String PACKAGE = "package";
     private Intent intent;
 
-    public LauncherAdapter(@NonNull final List<AppInfo> data, Context context) {
+    public ListAdapter(@NonNull final List<AppInfo> data, Context context) {
         mData = data;
         this.context = context;
-        TAG = context.getString(R.string.launcher_adapter);
+        TAG = context.getString(R.string.list_adapter);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-        return new Holder.GridHolder(view);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new Holder.ListHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        bindGridView((Holder.GridHolder) holder, position);
+        bindGridView((Holder.ListHolder) holder, position);
     }
 
-    private void bindGridView(@NonNull final Holder.GridHolder gridHolder, final int position) {
-        final View imageView = gridHolder.getImageView();
-        final TextView textView = gridHolder.getTextView();
-        imageView.setBackground(mData.get(position).getIcon());
-        textView.setText(mData.get(position).getName());
+    private void bindGridView(@NonNull final Holder.ListHolder listHolder, final int position) {
+        final View imageView = listHolder.getImageView();
+        final TextView title = listHolder.getTitle();
+        final TextView text = listHolder.getText();
+        imageView.setBackground( mData.get(position).getIcon());
+        title.setText(mData.get(position).getName());
+        text.setText(mData.get(position).getPackageName());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +80,7 @@ public class LauncherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void showPopUpMenu(final View view, final int position) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         popupMenu.inflate(R.menu.context_menu);
-        String title = (String) popupMenu.getMenu().findItem(R.id.launch_count).getTitle();
+        String title = (String) popupMenu.getMenu().findItem(R.id.launch_count).getTitle() + " ";
         title += mData.get(position).getLaunched();
         popupMenu.getMenu().findItem(R.id.launch_count).setTitle(title);
 
