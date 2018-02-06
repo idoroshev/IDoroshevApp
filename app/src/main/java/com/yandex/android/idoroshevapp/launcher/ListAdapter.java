@@ -50,7 +50,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final View imageView = listHolder.getImageView();
         final TextView title = listHolder.getTitle();
         final TextView text = listHolder.getText();
-        imageView.setBackground(new BitmapDrawable(context.getResources(), mData.get(position).getIcon()));
+        imageView.setBackground( mData.get(position).getIcon());
         title.setText(mData.get(position).getName());
         text.setText(mData.get(position).getPackageName());
 

@@ -50,7 +50,7 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void bindGridView(@NonNull final Holder.GridHolder gridHolder, final int position) {
         final View imageView = gridHolder.getImageView();
         final TextView textView = gridHolder.getTextView();
-        imageView.setBackground(new BitmapDrawable(context.getResources(), mData.get(position).getIcon()));
+        imageView.setBackground(mData.get(position).getIcon());
         textView.setText(mData.get(position).getName());
 
         imageView.setOnClickListener(new View.OnClickListener() {

@@ -41,7 +41,7 @@ public class DataStorage {
         final String name = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA));
         final long updatedTime = packageManager.getPackageInfo(packageName, 0).lastUpdateTime;
         final Drawable icon = packageManager.getApplicationIcon(packageName);
-        return new AppInfo(name, packageName, updatedTime, ((BitmapDrawable) icon).getBitmap());
+        return new AppInfo(name, packageName, updatedTime, icon);
     }
 
     public static ArrayList<AppInfo> getData() {
