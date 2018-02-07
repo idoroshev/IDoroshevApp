@@ -52,6 +52,22 @@ public class ThemeChoosingFragment extends Fragment {
             }
         });
 
+        mLightThemeRadioWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLightTheme();
+                getActivity().recreate();
+            }
+        });
+
+        mDarkThemeRadioWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDarkTheme();
+                getActivity().recreate();
+            }
+        });
+
         return view;
     }
 

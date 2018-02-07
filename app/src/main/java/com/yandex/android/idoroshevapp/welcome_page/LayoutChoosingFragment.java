@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.yandex.android.idoroshevapp.R;
@@ -18,6 +19,8 @@ public class LayoutChoosingFragment extends Fragment {
 
     RadioButton mDefaultLayoutRadio;
     RadioButton mDenseLayoutRadio;
+    LinearLayout mDefaultLayoutRadioWrapper;
+    LinearLayout mDenseLayoutRadioWrapper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +33,8 @@ public class LayoutChoosingFragment extends Fragment {
         getActivity().setTheme(SettingsFragment.getApplicationTheme(getActivity()));
         mDefaultLayoutRadio = view.findViewById(R.id.default_layout_radio);
         mDenseLayoutRadio = view.findViewById(R.id.dense_layout_radio);
+        mDefaultLayoutRadioWrapper = view.findViewById(R.id.default_layout_radio_wrapper);
+        mDenseLayoutRadioWrapper = view.findViewById(R.id.dense_layout_radio_wrapper);
 
         if (SettingsFragment.getLayoutColumnsId(getActivity()) == Layout.getColumnsId("0")) {
             setDefaultLayout();
@@ -45,6 +50,20 @@ public class LayoutChoosingFragment extends Fragment {
         });
 
         mDenseLayoutRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDenseLayout();
+            }
+        });
+
+        mDefaultLayoutRadioWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDefaultLayout();
+            }
+        });
+
+        mDenseLayoutRadioWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setDenseLayout();
