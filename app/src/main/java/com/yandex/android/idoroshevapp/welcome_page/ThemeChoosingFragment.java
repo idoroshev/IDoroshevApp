@@ -40,6 +40,7 @@ public class ThemeChoosingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 setLightTheme();
+                getActivity().recreate();
             }
         });
 
@@ -47,6 +48,7 @@ public class ThemeChoosingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 setDarkTheme();
+                getActivity().recreate();
             }
         });
 

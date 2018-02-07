@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.yandex.android.idoroshevapp.MainActivity;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.DataStorage;
@@ -32,10 +33,13 @@ import com.yandex.android.idoroshevapp.settings.SettingsActivity;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.Database;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,8 +76,15 @@ public class LauncherActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(SettingsFragment.getApplicationTheme(this));
+        Fabric.with(this, new Crashlytics());
         super.onCreate(savedInstanceState);
+        if (!SettingsFragment.skipWelcomePage(this)) {
+            final Intent intent = new Intent();
+            intent.setClass(this, WelcomePageActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        setTheme(SettingsFragment.getApplicationTheme(this));
         setContentView(R.layout.activity_launcher_nav_view);
         Database.initialize(this);
         TAG = getString(R.string.launcher_activity);
@@ -97,8 +108,6 @@ public class LauncherActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        | Intent.FLAG_ACTIVITY_NEW_TASK );
                 startActivity(intent);
             }
         });

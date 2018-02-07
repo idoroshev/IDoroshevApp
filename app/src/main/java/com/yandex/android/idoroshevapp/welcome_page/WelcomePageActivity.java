@@ -29,45 +29,39 @@ public class WelcomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        if (SettingsFragment.skipWelcomePage(this)) {
-            Intent intent = new Intent(this, LauncherActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            setContentView(R.layout.activity_welcome_page);
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = fm.findFragmentById(R.id.welcome_page_fragment_container);
+        setTheme(SettingsFragment.getApplicationTheme(this));
+        setContentView(R.layout.activity_welcome_page);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.welcome_page_fragment_container);
 
-            final FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
 
 
-            prepareData();
-            mSectionsPagerAdapter = new WelcomeViewPagerAdapter(fragmentManager, data, this);
+        prepareData();
+        mSectionsPagerAdapter = new WelcomeViewPagerAdapter(fragmentManager, data, this);
 
-            mViewPager = (ViewPager) findViewById(R.id.welcome_page_fragment_container);
-            mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.welcome_page_fragment_container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
-                @Override
-                public void onPageSelected(int position) {
-                    if (position == data.size() - 1) {
-                        LayoutChoosingFragment.setLayout(WelcomePageActivity.this);
-                        SettingsFragment.setWelcomePageSwitchValue(WelcomePageActivity.this, false);
-                        Intent intent = new Intent(WelcomePageActivity.this, LauncherActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                | Intent.FLAG_ACTIVITY_NEW_TASK );
-                        WelcomePageActivity.this.startActivity(intent);
-                    }
+            @Override
+            public void onPageSelected(int position) {
+                if (position == data.size() - 1) {
+                    LayoutChoosingFragment.setLayout(WelcomePageActivity.this);
+                    SettingsFragment.setWelcomePageSwitchValue(WelcomePageActivity.this, false);
+                    Intent intent = new Intent(WelcomePageActivity.this, LauncherActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            | Intent.FLAG_ACTIVITY_NEW_TASK );
+                    WelcomePageActivity.this.startActivity(intent);
                 }
+            }
 
-                @Override
-                public void onPageScrollStateChanged(int state) {}
-            });
-        }
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
 
 
         checkForUpdates();
