@@ -5,17 +5,56 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 
 import java.util.Comparator;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(SettingsActivity.KEY_THEME, "Changed");
+        if (key.equals(SettingsActivity.KEY_THEME)) {
+            setThemeChanged();
+            getActivity().recreate();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    public static boolean isThemeChanged() {
+        if (SettingsActivity.themeChanged) {
+            SettingsActivity.themeChanged = false;
+            return true;
+        }
+        return false;
+    }
+
+    public static void setThemeChanged() {
+        SettingsActivity.themeChanged = true;
     }
 
     public static boolean skipWelcomePage(Activity activity) {
@@ -61,8 +100,8 @@ public class SettingsFragment extends PreferenceFragment {
 
     public static int getLayoutColumnsId(Activity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        String code = preferences.getString(SettingsActivity.KEY_LAYOUT, Layout.DEFAULT);
-        return Layout.getColumnsId(code);
+        String code = preferences.getString(SettingsActivity.KEY_LAYOUT, LayoutDensity.DEFAULT);
+        return LayoutDensity.getColumnsId(code);
     }
 
     public static void setLayout(String layout, Activity activity) {
@@ -75,5 +114,11 @@ public class SettingsFragment extends PreferenceFragment {
     public static boolean hasLayout(Activity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         return preferences.contains(SettingsActivity.KEY_LAYOUT);
+    }
+
+    public static Fragment getLayoutFragment(Activity activity) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        String code = preferences.getString(SettingsActivity.KEY_LAYOUT_TYPE, LayoutType.DEFAULT);
+        return LayoutType.getLayoutFragment(code);
     }
 }

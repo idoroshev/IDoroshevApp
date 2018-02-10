@@ -2,7 +2,7 @@ package com.yandex.android.idoroshevapp.settings;
 
 import com.yandex.android.idoroshevapp.R;
 
-public class Layout {
+public class LayoutDensity {
     public static final String STANDARD = "0";
     public static final String DENSE = "1";
     public static final String DEFAULT = STANDARD;

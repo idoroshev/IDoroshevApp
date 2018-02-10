@@ -10,7 +10,7 @@
         <menu>
             <group android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_launcher"
+                android:id="@+id/nav_grid"
                 android:icon="@drawable/ic_menu_grid"
                 android:title="@string/grid_layout" />
             <item

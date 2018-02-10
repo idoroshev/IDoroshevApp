@@ -1,5 +1,6 @@
 package com.yandex.android.idoroshevapp.launcher;
 
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,6 +31,7 @@ import com.crashlytics.android.Crashlytics;
 import com.yandex.android.idoroshevapp.MainActivity;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.DataStorage;
+import com.yandex.android.idoroshevapp.settings.LayoutType;
 import com.yandex.android.idoroshevapp.settings.SettingsActivity;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.Database;
@@ -47,7 +50,8 @@ public class LauncherActivity extends AppCompatActivity
     private String TAG;
     private ArrayList<AppInfo> mData = new ArrayList<>();
     private final String PACKAGE = "package";
-    protected static RecyclerView.Adapter launcherAdapter;
+    private Fragment mFragment;
+    private NavigationView navigationView;
 
     private BroadcastReceiver monitor = new BroadcastReceiver() {
         @Override
@@ -64,11 +68,8 @@ public class LauncherActivity extends AppCompatActivity
                     default:
                         break;
                 }
-                Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
-                if (launcherAdapter != null) {
-
-                    launcherAdapter.notifyDataSetChanged();
-                }
+                DataStorage.sortData(LauncherActivity.this);
+                mFragment.onConfigurationChanged(null);
             }
         }
 
@@ -99,7 +100,7 @@ public class LauncherActivity extends AppCompatActivity
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         final View navigationHeaderView = navigationView.getHeaderView(0);
@@ -112,31 +113,28 @@ public class LauncherActivity extends AppCompatActivity
             }
         });
 
-        mData = DataStorage.generateData(this);
-        Collections.sort(mData, SettingsFragment.getComparator(LauncherActivity.this));
+        DataStorage.generateData(this);
+
         if (savedInstanceState == null) {
-            setGridLayout();
+            setLayout();
         }
 
     }
 
-    private void setGridLayout() {
+    private void setLayout() {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        GridLayoutFragment fragment = GridLayoutFragment.newInstance(mData);
+        mFragment = SettingsFragment.getLayoutFragment(this);
         fragmentManager.beginTransaction().
-                replace(R.id.launcher_fragment_container, fragment).commit();
-    }
-
-    private void setLinearLayout() {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        LinearLayoutFragment fragment = LinearLayoutFragment.newInstance(mData);
-        fragmentManager.beginTransaction().
-                replace(R.id.launcher_fragment_container, fragment).commit();
+                replace(R.id.launcher_fragment_container, mFragment).commit();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        if (SettingsFragment.isThemeChanged()) {
+            recreate();
+        }
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
@@ -171,17 +169,18 @@ public class LauncherActivity extends AppCompatActivity
         Intent intent;
 
         switch (id) {
-            case R.id.nav_launcher:
-                setGridLayout();
+            case R.id.nav_grid:
+                LayoutType.setCurrent(LayoutType.GRID);
+                setLayout();
                 break;
             case R.id.nav_list:
-                setLinearLayout();
+                LayoutType.setCurrent(LayoutType.LINEAR);
+                setLayout();
                 break;
             case R.id.nav_settings:
                 intent = new Intent();
                 intent.setClass(this, SettingsActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             default:
                 break;
@@ -191,4 +190,7 @@ public class LauncherActivity extends AppCompatActivity
         return true;
     }
 
+    public NavigationView getNavigationView() {
+        return navigationView;
+    }
 }

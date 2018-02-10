@@ -10,8 +10,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import com.yandex.android.idoroshevapp.launcher.LauncherActivity;
+import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DataStorage {
@@ -33,6 +36,7 @@ public class DataStorage {
                 e.printStackTrace();
             }
         }
+        sortData(activity);
         return data;
     }
 
@@ -82,5 +86,8 @@ public class DataStorage {
         return data;
     }
 
+    public static void sortData(Activity activity) {
+        Collections.sort(data, SettingsFragment.getComparator(activity));
+    }
 
 }

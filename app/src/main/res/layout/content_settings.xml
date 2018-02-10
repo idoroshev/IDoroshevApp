@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_settings_nav_view">
+    tools:showIn="@layout/activity_settings">
 
 </RelativeLayout>

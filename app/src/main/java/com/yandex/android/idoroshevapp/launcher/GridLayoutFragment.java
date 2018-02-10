@@ -2,9 +2,11 @@ package com.yandex.android.idoroshevapp.launcher;
 
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,9 +40,9 @@ public class GridLayoutFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        mData = DataStorage.getData();
         mActivity = getActivity();
-        Collections.sort(mData, SettingsFragment.getComparator(mActivity));
+        DataStorage.sortData(mActivity);
+        mData = DataStorage.getData();
     }
 
     @Override
@@ -48,9 +50,22 @@ public class GridLayoutFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.content_launcher, container, false);
-
+        setNavigationView();
         createGridLayout();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setNavigationView();
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mGridAdapter.notifyDataSetChanged();
     }
 
     private void createGridLayout() {
@@ -65,7 +80,13 @@ public class GridLayoutFragment extends Fragment {
 
         mGridAdapter = new GridAdapter(mData, mActivity);
         recyclerView.setAdapter(mGridAdapter);
-        LauncherActivity.launcherAdapter = mGridAdapter;
     }
 
+    private void setNavigationView() {
+        NavigationView navigationView = ((LauncherActivity) mActivity).getNavigationView();
+        navigationView.getMenu().findItem(R.id.nav_grid).setChecked(true);
+        navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
+        navigationView.getMenu().findItem(R.id.nav_settings).setChecked(false);
+
+    }
 }
