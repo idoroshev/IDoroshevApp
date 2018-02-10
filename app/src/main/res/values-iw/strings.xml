@@ -37,4 +37,8 @@
      <string name = "linear_layout"> פריסה ליניארית </string>
     <string name="sorting_type">סוג מיון</string>
     <string name="choose_sorting_type">בחר סוג מיון עבור היישומים שלך</string>
+    <string name="mobile">Mobile</string>
+    <string name="home">Home</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
 </resources>

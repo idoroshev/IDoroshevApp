@@ -38,5 +38,9 @@
     <string name = "linear_layout"> Disposition linéaire </string>
     <string name="sorting_type">Type de tri</string>
     <string name="choose_sorting_type">Choisissez le type de tri pour vos applications</string>
+    <string name="mobile">Mobile</string>
+    <string name="home">Home</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
 
 </resources>

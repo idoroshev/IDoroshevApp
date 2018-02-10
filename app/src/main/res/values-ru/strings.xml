@@ -38,4 +38,8 @@
      <string name = "linear_layout"> Список </string>
     <string name="sorting_type">Тип сортировки</string>
     <string name="choose_sorting_type">Выберите тип сортировки ваших приложений</string>
+    <string name="mobile">Mobile</string>
+    <string name="home">Home</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
 </resources>

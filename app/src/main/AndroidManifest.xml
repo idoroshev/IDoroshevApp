@@ -39,7 +39,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ProfileActivity"
             android:parentActivityName=".launcher.LauncherActivity">
         </activity>
 

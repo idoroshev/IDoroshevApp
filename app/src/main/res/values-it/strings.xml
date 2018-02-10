@@ -38,4 +38,8 @@
      <string name = "linear_layout"> Layout lineare </string>
     <string name="sorting_type">Tipo di ordinamento</string>
     <string name="choose_sorting_type">Scegli il tipo di ordinamento per le tue app</string>
+    <string name="mobile">Mobile</string>
+    <string name="home">Home</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
 </resources>

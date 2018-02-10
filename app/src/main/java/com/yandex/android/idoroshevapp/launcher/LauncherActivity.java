@@ -1,18 +1,10 @@
 package com.yandex.android.idoroshevapp.launcher;
 
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -20,15 +12,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.yandex.android.idoroshevapp.MainActivity;
+import com.yandex.android.idoroshevapp.ProfileActivity;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.settings.LayoutType;
@@ -39,8 +28,6 @@ import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -108,7 +95,7 @@ public class LauncherActivity extends AppCompatActivity
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                Intent intent = new Intent(LauncherActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
