@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.launcher.LauncherActivity;
 import com.yandex.metrica.YandexMetrica;
 
 

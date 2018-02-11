@@ -92,6 +92,5 @@ public class GridLayoutFragment extends Fragment {
         navigationView.getMenu().findItem(R.id.nav_grid).setChecked(true);
         navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
         navigationView.getMenu().findItem(R.id.nav_settings).setChecked(false);
-
     }
 }
