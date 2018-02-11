@@ -19,6 +19,7 @@ import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,7 @@ public class LinearLayoutFragment extends Fragment {
     private Activity mActivity;
     private ArrayList<AppInfo> mData;
     private static final String DATA_KEY = "data";
+    private final String LINEAR_LAYOUT_OPENED = "Linear layout opened";
     View view;
 
     public static LinearLayoutFragment newInstance(final ArrayList<AppInfo> data) {
@@ -44,6 +46,7 @@ public class LinearLayoutFragment extends Fragment {
         mActivity = getActivity();
         DataStorage.sortData(mActivity);
         mData = DataStorage.getData();
+        YandexMetrica.reportEvent(LINEAR_LAYOUT_OPENED);
     }
 
     @Override

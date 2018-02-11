@@ -1,6 +1,7 @@
 package com.yandex.android.idoroshevapp.settings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -10,12 +11,17 @@ import android.util.Log;
 
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.Comparator;
 
 public class SettingsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    public static final String THEME_SETTINGS_CHANGED = "Theme settings changed";
+    public static final String LAYOUT_SETTINGS_CHANGED = "Layout settings changed";
+    public static final String SORTING_TYPE_CHANGED = "Sorting type changed";
+    public static final String WELCOME_PAGE_SETTINGS_CHANGED = "Welcome page settings changed";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +31,22 @@ public class SettingsFragment extends PreferenceFragment
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d(SettingsActivity.KEY_THEME, "Changed");
-        if (key.equals(SettingsActivity.KEY_THEME)) {
-            setThemeChanged();
-            getActivity().recreate();
+        setConfigChanged();
+        switch (key) {
+            case SettingsActivity.KEY_THEME:
+                setThemeChanged();
+                getActivity().recreate();
+                YandexMetrica.reportEvent(THEME_SETTINGS_CHANGED);
+                break;
+            case SettingsActivity.KEY_LAYOUT:
+                YandexMetrica.reportEvent(LAYOUT_SETTINGS_CHANGED);
+                break;
+            case SettingsActivity.KEY_SORTING_TYPE:
+                YandexMetrica.reportEvent(SORTING_TYPE_CHANGED);
+                break;
+            case SettingsActivity.KEY_WELCOME_PAGE:
+                YandexMetrica.reportEvent(WELCOME_PAGE_SETTINGS_CHANGED);
+                break;
         }
     }
 
@@ -57,8 +76,21 @@ public class SettingsFragment extends PreferenceFragment
         SettingsActivity.themeChanged = true;
     }
 
-    public static boolean skipWelcomePage(Activity activity) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+    public static boolean isConfigChanged() {
+        if (SettingsActivity.configChanged) {
+            SettingsActivity.configChanged = false;
+            SettingsActivity.themeChanged = false;
+            return true;
+        }
+        return false;
+    }
+
+    public static void setConfigChanged() {
+        SettingsActivity.configChanged = true;
+    }
+
+    public static boolean skipWelcomePage(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         boolean good;
         good = preferences.contains(SettingsActivity.KEY_LAYOUT);
         good &= preferences.contains(SettingsActivity.KEY_THEME);

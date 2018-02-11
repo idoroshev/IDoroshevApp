@@ -84,4 +84,6 @@
     <string name="vk" translatable="false">VK</string>
     <string name="my_telegram" translatable="false">\@idoroshev</string>
     <string name="telegram" translatable="false">Telegram</string>
+    <string name="app_added" translatable="false">App added</string>
+    <string name="app_deleted" translatable="false">App deleted</string>
 </resources>

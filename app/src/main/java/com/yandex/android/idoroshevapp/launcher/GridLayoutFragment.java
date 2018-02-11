@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +30,8 @@ public class GridLayoutFragment extends Fragment {
     private Activity mActivity;
     private ArrayList<AppInfo> mData;
     private static final String DATA_KEY = "data";
+    private final String GRID_LAYOUT_OPENED = "Grid layout opened";
+
     View view;
 
     public static GridLayoutFragment newInstance(final ArrayList<AppInfo> data) {
@@ -43,6 +47,7 @@ public class GridLayoutFragment extends Fragment {
         mActivity = getActivity();
         DataStorage.sortData(mActivity);
         mData = DataStorage.getData();
+        YandexMetrica.reportEvent(GRID_LAYOUT_OPENED);
     }
 
     @Override

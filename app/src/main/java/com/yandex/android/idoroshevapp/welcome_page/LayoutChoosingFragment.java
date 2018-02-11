@@ -14,6 +14,7 @@ import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.settings.LayoutDensity;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.android.idoroshevapp.settings.Theme;
+import com.yandex.metrica.YandexMetrica;
 
 public class LayoutChoosingFragment extends Fragment {
 
@@ -21,6 +22,8 @@ public class LayoutChoosingFragment extends Fragment {
     RadioButton mDenseLayoutRadio;
     LinearLayout mDefaultLayoutRadioWrapper;
     LinearLayout mDenseLayoutRadioWrapper;
+
+    private final String LAYOUT_WELCOME_PAGE_CHANGED = "Layout welcome page changed";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +62,7 @@ public class LayoutChoosingFragment extends Fragment {
         mDefaultLayoutRadioWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                YandexMetrica.reportEvent(LAYOUT_WELCOME_PAGE_CHANGED);
                 setDefaultLayout();
             }
         });
@@ -66,6 +70,7 @@ public class LayoutChoosingFragment extends Fragment {
         mDenseLayoutRadioWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                YandexMetrica.reportEvent(LAYOUT_WELCOME_PAGE_CHANGED);
                 setDenseLayout();
             }
         });

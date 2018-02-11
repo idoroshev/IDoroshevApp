@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,6 +30,7 @@ import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.Database;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 
@@ -37,6 +42,12 @@ public class LauncherActivity extends AppCompatActivity
     private String TAG;
     private ArrayList<AppInfo> mData = new ArrayList<>();
     private final String PACKAGE = "package";
+    private static final String APP_ADDED = "App added";
+    private static final String APP_DELETED = "App deleted";
+    private static final String LAUNCHER_ORIENTATION_LANDSCAPE = "Launcher orientation landscape";
+    private static final String LAUNCHER_ORIENTATION_PORTRAIT = "Launcher orientation portrait";
+    public static final String KEY_LAST_ORIENTATION = "last_orientation";
+    private int lastOrientation;
     private Fragment mFragment;
     private NavigationView navigationView;
 
@@ -47,9 +58,11 @@ public class LauncherActivity extends AppCompatActivity
             if (action != null) {
                 switch (action) {
                     case Intent.ACTION_PACKAGE_ADDED:
+                        YandexMetrica.reportEvent(APP_ADDED);
                         mData = DataStorage.appAdded(LauncherActivity.this, intent);
                         break;
                     case Intent.ACTION_PACKAGE_REMOVED:
+                        YandexMetrica.reportEvent(APP_DELETED);
                         mData = DataStorage.appRemoved(LauncherActivity.this, intent);
                         break;
                     default:
@@ -64,14 +77,9 @@ public class LauncherActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Fabric.with(this, new Crashlytics());
         super.onCreate(savedInstanceState);
-        if (!SettingsFragment.skipWelcomePage(this)) {
-            final Intent intent = new Intent();
-            intent.setClass(this, WelcomePageActivity.class);
-            startActivity(intent);
-            finish();
-        }
+
+
         setTheme(SettingsFragment.getApplicationTheme(this));
         setContentView(R.layout.activity_launcher_nav_view);
         Database.initialize(this);
@@ -91,6 +99,8 @@ public class LauncherActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         final View navigationHeaderView = navigationView.getHeaderView(0);
+
+
         final View profileImage = navigationHeaderView.findViewById(R.id.avatar);
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +113,7 @@ public class LauncherActivity extends AppCompatActivity
         DataStorage.generateData(this);
 
         if (savedInstanceState == null) {
+            lastOrientation = getResources().getConfiguration().orientation;
             setLayout();
         }
 
@@ -118,8 +129,8 @@ public class LauncherActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (SettingsFragment.isThemeChanged()) {
+        checkOrientationChanged();
+        if (SettingsFragment.isConfigChanged()) {
             recreate();
         }
         IntentFilter intentFilter = new IntentFilter();
@@ -147,6 +158,34 @@ public class LauncherActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        lastOrientation = savedInstanceState.getInt(KEY_LAST_ORIENTATION);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_LAST_ORIENTATION, lastOrientation);
+    }
+
+    private void checkOrientationChanged() {
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation != lastOrientation) {
+            onScreenOrientationChanged(currentOrientation);
+            lastOrientation = currentOrientation;
+        }
+    }
+
+    public void onScreenOrientationChanged(int currentOrientation) {
+        if (currentOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            YandexMetrica.reportEvent(LAUNCHER_ORIENTATION_PORTRAIT);
+        } else {
+            YandexMetrica.reportEvent(LAUNCHER_ORIENTATION_LANDSCAPE);
         }
     }
 

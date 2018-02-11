@@ -2,6 +2,9 @@ package com.yandex.android.idoroshevapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -20,6 +23,7 @@ import com.yandex.android.idoroshevapp.launcher.Holder;
 import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
+import com.yandex.metrica.YandexMetrica;
 
 import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
@@ -30,16 +34,27 @@ import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private final String PROFILE_OPENED = "Profile opened";
+    private static final String PROFILE_ORIENTATION_LANDSCAPE = "Profile orientation landscape";
+    private static final String PROFILE_ORIENTATION_PORTRAIT = "Profile orientation portrait";
+    public static final String KEY_LAST_ORIENTATION = "last_orientation";
+    private int lastOrientation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(SettingsFragment.getApplicationTheme(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        YandexMetrica.reportEvent(PROFILE_OPENED);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        if (savedInstanceState == null) {
+            lastOrientation = getResources().getConfiguration().orientation;
         }
 
         RecyclerView recyclerView = findViewById(R.id.profile_content);
@@ -53,6 +68,39 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(new ProfileAdapter(this));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkOrientationChanged();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        lastOrientation = savedInstanceState.getInt(KEY_LAST_ORIENTATION);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_LAST_ORIENTATION, lastOrientation);
+    }
+
+    private void checkOrientationChanged() {
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation != lastOrientation) {
+            onScreenOrientationChanged(currentOrientation);
+            lastOrientation = currentOrientation;
+        }
+    }
+
+    public void onScreenOrientationChanged(int currentOrientation) {
+        if (currentOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            YandexMetrica.reportEvent(PROFILE_ORIENTATION_PORTRAIT);
+        } else {
+            YandexMetrica.reportEvent(PROFILE_ORIENTATION_LANDSCAPE);
+        }
+    }
 }
 
 class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

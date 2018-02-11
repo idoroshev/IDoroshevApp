@@ -3,8 +3,10 @@
           package="com.yandex.android.idoroshevapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
+        android:name=".IDoroshevApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/short_app_name"
@@ -19,7 +21,8 @@
             android:name="io.fabric.ApiKey"
             android:value="846c39be63f29726b2985c5f45d9051ba9e5647f"/>
 
-        <activity android:name=".welcome_page.WelcomePageActivity">
+        <activity
+            android:name=".welcome_page.WelcomePageActivity">
 
         </activity>
         <activity
