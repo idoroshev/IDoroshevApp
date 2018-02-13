@@ -24,10 +24,20 @@
         android:defaultValue="false"/>
 
     <ListPreference
-        android:key="sorting_type"
+        android:key="@string/sorting_type_key"
         android:title="@string/sorting_type"
         android:summary="@string/choose_sorting_type"
         android:defaultValue="0"
         android:entries="@array/sorting_entries"
         android:entryValues="@array/sorting_values"/>
+
+    <ListPreference
+        android:key="@string/background_change_frequency_key"
+        android:title="@string/background_change_frequency"
+        android:defaultValue="0"
+        android:entries="@array/background_frequency_entries"
+        android:entryValues="@array/background_frequency_values"/>
+    <Preference
+        android:key="@string/update_background_key"
+        android:title="@string/update_background_now"/>
 </PreferenceScreen>

@@ -20,10 +20,5 @@ public class IDoroshevApp extends Application {
         YandexMetrica.activate(getApplicationContext(), API_KEY);
         YandexMetrica.enableActivityAutoTracking(this);
 
-        if (!SettingsFragment.skipWelcomePage(this)) {
-            final Intent intent = new Intent();
-            intent.setClass(this, WelcomePageActivity.class);
-            startActivity(intent);
-        }
     }
 }

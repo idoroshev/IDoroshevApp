@@ -1,10 +1,7 @@
 package com.yandex.android.idoroshevapp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -13,21 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.crashlytics.android.Crashlytics;
 import com.yandex.android.idoroshevapp.launcher.Holder;
 import com.yandex.android.idoroshevapp.launcher.OffsetItemDecoration;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
-import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
 import com.yandex.metrica.YandexMetrica;
-
-import io.fabric.sdk.android.Fabric;
-import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(SettingsFragment.getApplicationTheme(this));
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
         YandexMetrica.reportEvent(PROFILE_OPENED);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

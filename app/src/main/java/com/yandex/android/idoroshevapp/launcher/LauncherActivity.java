@@ -1,12 +1,15 @@
 package com.yandex.android.idoroshevapp.launcher;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,11 +19,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
+import com.yandex.android.idoroshevapp.*;
 import com.yandex.android.idoroshevapp.ProfileActivity;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.DataStorage;
@@ -39,7 +44,7 @@ import io.fabric.sdk.android.Fabric;
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
-    private String TAG;
+    private String TAG = "launcher";
     private ArrayList<AppInfo> mData = new ArrayList<>();
     private final String PACKAGE = "package";
     private static final String APP_ADDED = "App added";
@@ -50,6 +55,29 @@ public class LauncherActivity extends AppCompatActivity
     private int lastOrientation;
     private Fragment mFragment;
     private NavigationView navigationView;
+    private UpdateImageBroadcastReceiver mUpdateImageBroadcastReceiver;
+    private View mLayout;
+    private final String imageName = "myImage.png";
+
+    public static boolean isFirstLaunch = false;
+
+    private class UpdateImageBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            String action = intent.getAction();
+            Log.d(TAG, "UpdateImageBroadcastReceiver#onReceive() with action: " + action);
+            if (ImageLoaderService.BROADCAST_ACTION_UPDATE_IMAGE.equals(action)) {
+                final String imageName = intent.getStringExtra(ImageLoaderService.BROADCAST_PARAM_IMAGE);
+                if (!TextUtils.isEmpty(imageName)) {
+                    final Bitmap bitmap = ImageSaver.getInstance().loadImage(getApplicationContext(), imageName);
+                    final Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                    mLayout.setBackground(drawable);
+                }
+            }
+
+        }
+    }
 
     private BroadcastReceiver monitor = new BroadcastReceiver() {
         @Override
@@ -79,11 +107,28 @@ public class LauncherActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!isFirstLaunch) {
+            Intent serviceIntent = new Intent(ImageLoaderService.ACTION_LOAD_IMAGE);
+            ImageLoaderService.enqueueWork(getApplicationContext(), serviceIntent);
+            isFirstLaunch = true;
+            Utils.scheduleAlarm(getApplicationContext());
+            if (!SettingsFragment.skipWelcomePage(this)) {
+                final Intent intent = new Intent();
+                intent.setClass(this, WelcomePageActivity.class);
+                startActivity(intent);
+            }
+        }
+
 
         setTheme(SettingsFragment.getApplicationTheme(this));
         setContentView(R.layout.activity_launcher_nav_view);
         Database.initialize(this);
-        TAG = getString(R.string.launcher_activity);
+
+        mLayout = findViewById(R.id.launcher_fragment_container);
+
+
+        mUpdateImageBroadcastReceiver = new UpdateImageBroadcastReceiver();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -133,12 +178,19 @@ public class LauncherActivity extends AppCompatActivity
         if (SettingsFragment.isConfigChanged()) {
             recreate();
         }
+
+        final Bitmap bitmap = ImageSaver.getInstance().loadImage(getApplicationContext(), imageName);
+        final Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+        mLayout.setBackground(drawable);
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         intentFilter.addDataScheme(PACKAGE);
         registerReceiver(monitor, intentFilter);
+        registerReceiver(mUpdateImageBroadcastReceiver,
+                new IntentFilter(ImageLoaderService.BROADCAST_ACTION_UPDATE_IMAGE));
 
     }
 
@@ -146,6 +198,7 @@ public class LauncherActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         //unregisterReceiver(monitor);
+        //unregisterReceiver(mUpdateImageBroadcastReceiver);
         for (AppInfo appInfo : mData) {
             Database.insertOrUpdate(appInfo);
         }
@@ -219,4 +272,6 @@ public class LauncherActivity extends AppCompatActivity
     public NavigationView getNavigationView() {
         return navigationView;
     }
+
 }
+

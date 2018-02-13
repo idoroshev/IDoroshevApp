@@ -42,4 +42,6 @@
     <string name="home">Home</string>
     <string name="email">Email</string>
     <string name="address">Address</string>
+    <!--<string name="background_change_frequency" translatable="false">Background change frequency</string>
+    <string name="update_background_now" translatable="false">Update background now</string>-->
 </resources>

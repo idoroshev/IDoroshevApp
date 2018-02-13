@@ -20,6 +20,10 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_WELCOME_PAGE = "welcome_page";
     public static final String KEY_SORTING_TYPE = "sorting_type";
     public static final String KEY_LAYOUT_TYPE = "layout_type";
+    public static final String KEY_IS_FIRST_LAUNCH = "is_first_launch";
+    public static final String KEY_BACKGROUND_CHANGE_FREQUENCY = "background_change_frequency";
+    public static final String KEY_UPDATE_BACKGROUND = "update_background";
+
     private final String SETTINGS_OPENED = "Settings opened";
 
     private static final String SETTINGS_ORIENTATION_LANDSCAPE = "Settings orientation landscape";

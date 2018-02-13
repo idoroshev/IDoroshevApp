@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".IDoroshevApp"
@@ -13,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}"/>
@@ -21,31 +22,42 @@
             android:name="io.fabric.ApiKey"
             android:value="846c39be63f29726b2985c5f45d9051ba9e5647f"/>
 
-        <activity
-            android:name=".welcome_page.WelcomePageActivity">
-
+        <activity android:name=".welcome_page.WelcomePageActivity">
         </activity>
         <activity
-            android:launchMode="singleTask"
             android:name=".launcher.LauncherActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="fullUser">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.HOME" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings">
         </activity>
-
         <activity
             android:name=".ProfileActivity"
             android:parentActivityName=".launcher.LauncherActivity">
         </activity>
 
+        <service
+            android:name=".ImageLoaderService"
+            android:exported="false">
+        </service>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
