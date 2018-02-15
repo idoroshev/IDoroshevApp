@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,24 +19,27 @@ import android.view.ViewGroup;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.data.DataStorage;
+import com.yandex.android.idoroshevapp.data.Database;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-public class GridLayoutFragment extends Fragment {
+public class DesktopFragment extends Fragment {
 
-    private GridAdapter mGridAdapter;
+    private  DesktopAdapter mDesktopAdapter;
     private Activity mActivity;
     private ArrayList<AppInfo> mData;
     private static final String DATA_KEY = "data";
-    private final String GRID_LAYOUT_OPENED = "Grid layout opened";
+    private final String DESKTOP_OPENED = "Desktop opened";
 
     View view;
 
-    public static GridLayoutFragment newInstance() {
-        GridLayoutFragment fragment = new GridLayoutFragment();
+    public static DesktopFragment newInstance() {
+        DesktopFragment fragment = new DesktopFragment();
         return fragment;
     }
 
@@ -46,8 +50,8 @@ public class GridLayoutFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
         DataStorage.sortData(mActivity);
-        mData = DataStorage.getData();
-        YandexMetrica.reportEvent(GRID_LAYOUT_OPENED);
+        mData = (ArrayList<AppInfo>) getOnDesktop(DataStorage.getData());
+        YandexMetrica.reportEvent(DESKTOP_OPENED);
     }
 
     @Override
@@ -56,35 +60,37 @@ public class GridLayoutFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.content_launcher, container, false);
         setNavigationView();
-        createGridLayout();
+        createGridLayout(true);
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        setNavigationView();
-
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mGridAdapter.notifyDataSetChanged();
+        mDesktopAdapter.notifyDataSetChanged();
     }
 
-    private void createGridLayout() {
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mData = (ArrayList<AppInfo>) getOnDesktop(DataStorage.getData());
+            if (view != null) createGridLayout(false);
+        }
+    }
+
+    private void createGridLayout(boolean addOffset) {
         final RecyclerView recyclerView = view.findViewById(R.id.launcher_content);
         final int offset = getResources().getDimensionPixelSize(R.dimen.item_offset);
-        recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
+        if (addOffset) recyclerView.addItemDecoration(new OffsetItemDecoration(offset));
 
         final int spanCount = getResources().getInteger(SettingsFragment.getLayoutColumnsId(mActivity));
         final GridLayoutManager layoutManager = new GridLayoutManager(mActivity, spanCount);
         recyclerView.setLayoutManager(layoutManager);
 
 
-        mGridAdapter = new GridAdapter(mData, mActivity);
-        recyclerView.setAdapter(mGridAdapter);
+        mDesktopAdapter = new DesktopAdapter(mData, mActivity);
+        recyclerView.setAdapter(mDesktopAdapter);
     }
 
     private void setNavigationView() {
@@ -92,5 +98,17 @@ public class GridLayoutFragment extends Fragment {
         navigationView.getMenu().findItem(R.id.nav_grid).setChecked(true);
         navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
         navigationView.getMenu().findItem(R.id.nav_settings).setChecked(false);
+    }
+
+    private static List<AppInfo> getOnDesktop(@NonNull List<AppInfo> data) {
+        List<AppInfo> temp = new ArrayList<>();
+        Log.d("TAGG", "get");
+        for (int i = 0; i < data.size(); i++) {
+            if (Database.containsOnDesktop(data.get(i))) {
+                Log.d("TAGG", "hmhmh");
+                temp.add(data.get(i));
+            }
+        }
+        return temp;
     }
 }

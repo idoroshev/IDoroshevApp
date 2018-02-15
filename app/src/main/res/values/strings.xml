@@ -89,11 +89,18 @@
 
     <string name="background_change_frequency_key" translatable="false">background_change_frequency</string>
     <string name="sorting_type_key" translatable="false">sorting_type</string>
-    <string name="background_change_frequency" translatable="false">Background change frequency</string>
-    <string name="minutes_15" translatable="false">15 minutes</string>
-    <string name="hour_1" translatable="false">1 hour</string>
-    <string name="hours_8" translatable="false">8 hours</string>
-    <string name="hours_24" translatable="false">24 hours</string>
     <string name="update_background_key" translatable="false">update_background</string>
-    <string name="update_background_now" translatable="false">Update background now</string>
+
+    <string name="background_change_frequency">Background change frequency</string>
+    <string name="minutes_15">15 minutes</string>
+    <string name="hour_1">1 hour</string>
+    <string name="hours_8">8 hours</string>
+    <string name="hours_24">24 hours</string>
+    <string name="update_background_now">Update background now</string>
+    <string name="delete_from_desktop">Delete from desktop</string>
+    <string name="add_to_desktop">Add to Desktop</string>
+    <string name="screen">Screen</string>
+    <string name="desktop">Desktop</string>
+    <string name="applications">Applications</string>
+    <string name="already_on_desktop">App has already on desktop</string>
 </resources>

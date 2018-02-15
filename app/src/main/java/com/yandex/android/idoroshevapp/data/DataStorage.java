@@ -1,20 +1,16 @@
 package com.yandex.android.idoroshevapp.data;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
-import com.yandex.android.idoroshevapp.launcher.LauncherActivity;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class DataStorage {
@@ -67,7 +63,7 @@ public class DataStorage {
         try {
             AppInfo appInfo = DataStorage.getAppInfoFromPackageName(packageName, activity);
             DataStorage.add(appInfo);
-            Database.insertOrUpdate(appInfo);
+            Database.insertOrUpdateLaunched(appInfo);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -79,7 +75,7 @@ public class DataStorage {
             String packageName = Uri.parse(intent.getDataString()).getSchemeSpecificPart();
             if (packageName.equals(appInfo.getPackageName())) {
                 DataStorage.remove(appInfo);
-                Database.remove(appInfo);
+                Database.removeLaunched(appInfo);
                 break;
             }
         }

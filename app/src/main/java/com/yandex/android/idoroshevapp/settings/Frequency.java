@@ -12,11 +12,11 @@ public class Frequency {
 
     public static long getFrequency(String code) {
         switch (code) {
-            case MINUTES_15: return AlarmManager.INTERVAL_FIFTEEN_MINUTES / 60;
-            case HOUR_1: return AlarmManager.INTERVAL_HOUR / 60;
-            case HOUR_8: return AlarmManager.INTERVAL_HOUR * 8 / 60;
-            case HOUR_24: return AlarmManager.INTERVAL_DAY / 60;
-            default: return AlarmManager.INTERVAL_FIFTEEN_MINUTES / 60;
+            case MINUTES_15: return AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+            case HOUR_1: return AlarmManager.INTERVAL_HOUR;
+            case HOUR_8: return AlarmManager.INTERVAL_HOUR * 8;
+            case HOUR_24: return AlarmManager.INTERVAL_DAY;
+            default: return AlarmManager.INTERVAL_FIFTEEN_MINUTES;
         }
     }
 }

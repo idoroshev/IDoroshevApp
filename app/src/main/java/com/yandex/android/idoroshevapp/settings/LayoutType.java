@@ -16,13 +16,13 @@ public class LayoutType {
 
     private static String current = null;
     
-    static Fragment getLayoutFragment(String code) {
+    public static Fragment getLayoutFragment(String code) {
         String layout = (current == null ? code : current);
         switch (layout) {
             case LayoutType.GRID:
-                return GridLayoutFragment.newInstance(DataStorage.getData());
+                return GridLayoutFragment.newInstance();
             case LayoutType.LINEAR:
-                return LinearLayoutFragment.newInstance(DataStorage.getData());
+                return LinearLayoutFragment.newInstance();
             default:
                 return LayoutType.getLayoutFragment(LayoutType.DEFAULT);
         }
@@ -31,4 +31,5 @@ public class LayoutType {
     public static void setCurrent(String code) {
         current = code;
     }
+    public static String getCurrent() { return (current == null ? DEFAULT : current); }
 }

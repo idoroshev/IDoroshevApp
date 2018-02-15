@@ -32,8 +32,8 @@ android {
         applicationId "com.yandex.android.idoroshevapp"
         minSdkVersion 22
         targetSdkVersion 26
-        versionCode 5
-        versionName "2.0"
+        versionCode 6
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "84f0f25bd4974458b7a3c92f5d5bde05"]
     }

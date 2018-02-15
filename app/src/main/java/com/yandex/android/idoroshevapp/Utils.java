@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.yandex.android.idoroshevapp.settings.SettingsActivity;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 
 
@@ -22,8 +23,9 @@ public class Utils {
         AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         if (alarm != null)
-            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
-                    SettingsFragment.getFrequency(context), pIntent);
+            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                            firstMillis + SettingsFragment.getFrequency(context),
+                                        SettingsFragment.getFrequency(context), pIntent);
     }
 
     public static void cancelAlarm(Context context) {

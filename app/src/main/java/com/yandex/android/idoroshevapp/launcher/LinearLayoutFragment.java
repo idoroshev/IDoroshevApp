@@ -33,7 +33,7 @@ public class LinearLayoutFragment extends Fragment {
     private final String LINEAR_LAYOUT_OPENED = "Linear layout opened";
     View view;
 
-    public static LinearLayoutFragment newInstance(final ArrayList<AppInfo> data) {
+    public static LinearLayoutFragment newInstance() {
         LinearLayoutFragment fragment = new LinearLayoutFragment();
         return fragment;
     }

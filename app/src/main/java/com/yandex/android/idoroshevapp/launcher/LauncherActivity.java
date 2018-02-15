@@ -1,7 +1,5 @@
 package com.yandex.android.idoroshevapp.launcher;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +23,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.crashlytics.android.Crashlytics;
 import com.yandex.android.idoroshevapp.*;
 import com.yandex.android.idoroshevapp.ProfileActivity;
 import com.yandex.android.idoroshevapp.R;
@@ -38,8 +36,6 @@ import com.yandex.android.idoroshevapp.welcome_page.WelcomePageActivity;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
-
-import io.fabric.sdk.android.Fabric;
 
 public class LauncherActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,6 +55,7 @@ public class LauncherActivity extends AppCompatActivity
     private View mLayout;
     private final String imageName = "myImage.png";
 
+    public ViewPager mViewPager;
     public static boolean isFirstLaunch = false;
 
     private class UpdateImageBroadcastReceiver extends BroadcastReceiver {
@@ -157,9 +154,13 @@ public class LauncherActivity extends AppCompatActivity
 
         DataStorage.generateData(this);
 
+        mViewPager = (MyViewPager) findViewById(R.id.view_pager_launcher);
+        mViewPager.setAdapter(new LauncherViewPagerAdapter(getSupportFragmentManager()));
+        mViewPager.addOnPageChangeListener(new OnScreenChangeListener(this));
+
         if (savedInstanceState == null) {
             lastOrientation = getResources().getConfiguration().orientation;
-            setLayout();
+            //setLayout();
         }
 
     }
@@ -168,7 +169,7 @@ public class LauncherActivity extends AppCompatActivity
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         mFragment = SettingsFragment.getLayoutFragment(this);
         fragmentManager.beginTransaction().
-                replace(R.id.launcher_fragment_container, mFragment).commit();
+                replace(R.id.applications, mFragment).commit();
     }
 
     @Override
@@ -200,7 +201,7 @@ public class LauncherActivity extends AppCompatActivity
         //unregisterReceiver(monitor);
         //unregisterReceiver(mUpdateImageBroadcastReceiver);
         for (AppInfo appInfo : mData) {
-            Database.insertOrUpdate(appInfo);
+            Database.insertOrUpdateLaunched(appInfo);
         }
     }
 
@@ -248,6 +249,12 @@ public class LauncherActivity extends AppCompatActivity
         Intent intent;
 
         switch (id) {
+            case R.id.nav_desktop:
+                mViewPager.setCurrentItem(0, true);
+                break;
+            case R.id.nav_apps:
+                mViewPager.setCurrentItem(1, true);
+                break;
             case R.id.nav_grid:
                 LayoutType.setCurrent(LayoutType.GRID);
                 setLayout();
