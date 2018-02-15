@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.android.idoroshevapp.settings.Theme;
+import com.yandex.metrica.YandexMetrica;
 
 public class ThemeChoosingFragment extends Fragment {
 
@@ -19,6 +20,8 @@ public class ThemeChoosingFragment extends Fragment {
     RadioButton mDarkThemeRadio;
     LinearLayout mLightThemeRadioWrapper;
     LinearLayout mDarkThemeRadioWrapper;
+
+    private final String THEME_WELCOME_PAGE_CHANGED = "Theme welcome page changed";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +59,7 @@ public class ThemeChoosingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 setLightTheme();
+                YandexMetrica.reportEvent(THEME_WELCOME_PAGE_CHANGED);
                 getActivity().recreate();
             }
         });
@@ -64,6 +68,7 @@ public class ThemeChoosingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 setDarkTheme();
+                YandexMetrica.reportEvent(THEME_WELCOME_PAGE_CHANGED);
                 getActivity().recreate();
             }
         });

@@ -1,15 +1,6 @@
 package com.yandex.android.idoroshevapp.data;
 
-import android.content.ContentValues;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.yandex.android.idoroshevapp.R;
-
-import java.io.Serializable;
 
 public class AppInfo {
     private String name;
@@ -22,7 +13,7 @@ public class AppInfo {
         this.name = name;
         this.packageName = packageName;
         this.updateTime = updateTime;
-        this.launched = Database.get(packageName);
+        this.launched = Database.getLaunched(packageName);
         this.icon = icon;
     }
 

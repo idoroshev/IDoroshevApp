@@ -11,9 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.yandex.android.idoroshevapp.R;
-import com.yandex.android.idoroshevapp.settings.Layout;
+import com.yandex.android.idoroshevapp.settings.LayoutDensity;
 import com.yandex.android.idoroshevapp.settings.SettingsFragment;
 import com.yandex.android.idoroshevapp.settings.Theme;
+import com.yandex.metrica.YandexMetrica;
 
 public class LayoutChoosingFragment extends Fragment {
 
@@ -21,6 +22,8 @@ public class LayoutChoosingFragment extends Fragment {
     RadioButton mDenseLayoutRadio;
     LinearLayout mDefaultLayoutRadioWrapper;
     LinearLayout mDenseLayoutRadioWrapper;
+
+    private final String LAYOUT_WELCOME_PAGE_CHANGED = "Layout welcome page changed";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +39,7 @@ public class LayoutChoosingFragment extends Fragment {
         mDefaultLayoutRadioWrapper = view.findViewById(R.id.default_layout_radio_wrapper);
         mDenseLayoutRadioWrapper = view.findViewById(R.id.dense_layout_radio_wrapper);
 
-        if (SettingsFragment.getLayoutColumnsId(getActivity()) == Layout.getColumnsId("0")) {
+        if (SettingsFragment.getLayoutColumnsId(getActivity()) == LayoutDensity.getColumnsId("0")) {
             setDefaultLayout();
         } else {
             setDenseLayout();
@@ -59,6 +62,7 @@ public class LayoutChoosingFragment extends Fragment {
         mDefaultLayoutRadioWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                YandexMetrica.reportEvent(LAYOUT_WELCOME_PAGE_CHANGED);
                 setDefaultLayout();
             }
         });
@@ -66,6 +70,7 @@ public class LayoutChoosingFragment extends Fragment {
         mDenseLayoutRadioWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                YandexMetrica.reportEvent(LAYOUT_WELCOME_PAGE_CHANGED);
                 setDenseLayout();
             }
         });
@@ -75,20 +80,20 @@ public class LayoutChoosingFragment extends Fragment {
 
     public static void setLayout(Activity activity) {
         if (!SettingsFragment.hasLayout(activity)) {
-            SettingsFragment.setLayout(Layout.DEFAULT, activity);
+            SettingsFragment.setLayout(LayoutDensity.DEFAULT, activity);
         }
     }
 
     private void setDefaultLayout() {
         mDefaultLayoutRadio.setChecked(true);
         mDenseLayoutRadio.setChecked(false);
-        SettingsFragment.setLayout(Layout.DEFAULT, getActivity());
+        SettingsFragment.setLayout(LayoutDensity.DEFAULT, getActivity());
     }
 
     private void setDenseLayout() {
         mDefaultLayoutRadio.setChecked(false);
         mDenseLayoutRadio.setChecked(true);
-        SettingsFragment.setLayout(Layout.DENSE, getActivity());
+        SettingsFragment.setLayout(LayoutDensity.DENSE, getActivity());
     }
 
 }

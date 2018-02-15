@@ -37,4 +37,22 @@
      <string name = "linear_layout"> פריסה ליניארית </string>
     <string name="sorting_type">סוג מיון</string>
     <string name="choose_sorting_type">בחר סוג מיון עבור היישומים שלך</string>
+    <string name="mobile">Mobile</string>
+    <string name="home">Home</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+
+
+    <string name="background_change_frequency">Background change frequency</string>
+    <string name="minutes_15">15 minutes</string>
+    <string name="hour_1">1 hour</string>
+    <string name="hours_8">8 hours</string>
+    <string name="hours_24">24 hours</string>
+    <string name="update_background_now">Update background now</string>
+    <string name="delete_from_desktop">Delete from desktop</string>
+    <string name="add_to_desktop">Add to Desktop</string>
+    <string name="screen">Screen</string>
+    <string name="desktop">Desktop</string>
+    <string name="applications">Applications</string>
+    <string name="already_on_desktop">App has already on desktop</string>
 </resources>

@@ -8,8 +8,11 @@
             android:id="@+id/info"
             android:title="@string/info"/>
         <item
+            android:id="@+id/add_to_desktop"
+            android:title="@string/add_to_desktop"/>
+        <item
             android:id="@+id/launch_count"
-            android:title="@string/launched"/>
-
+            android:title="@string/launched"
+            android:enabled="false"/>
     </group>
 </menu>

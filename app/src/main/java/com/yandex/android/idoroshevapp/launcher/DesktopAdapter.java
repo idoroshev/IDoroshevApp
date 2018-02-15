@@ -3,24 +3,24 @@ package com.yandex.android.idoroshevapp.launcher;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.R;
 import com.yandex.android.idoroshevapp.data.Database;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DesktopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     @NonNull
@@ -29,30 +29,28 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String PACKAGE = "package";
     private Intent intent;
 
-    public ListAdapter(@NonNull final List<AppInfo> data, Context context) {
+    public DesktopAdapter(@NonNull final List<AppInfo> data, Context context) {
         mData = data;
         this.context = context;
-        TAG = context.getString(R.string.list_adapter);
+        TAG = context.getString(R.string.launcher_adapter);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new Holder.ListHolder(view);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+        return new Holder.GridHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        bindGridView((Holder.ListHolder) holder, position);
+        bindGridView((Holder.GridHolder) holder, position);
     }
 
-    private void bindGridView(@NonNull final Holder.ListHolder listHolder, final int position) {
-        final View imageView = listHolder.getImageView();
-        final TextView title = listHolder.getTitle();
-        final TextView text = listHolder.getText();
-        imageView.setBackground( mData.get(position).getIcon());
-        title.setText(mData.get(position).getName());
-        text.setText(mData.get(position).getPackageName());
+    private void bindGridView(@NonNull final Holder.GridHolder gridHolder, final int position) {
+        final View imageView = gridHolder.getImageView();
+        final TextView textView = gridHolder.getTextView();
+        imageView.setBackground(mData.get(position).getIcon());
+        textView.setText(mData.get(position).getName());
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,32 +76,17 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void showPopUpMenu(final View view, final int position) {
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-        popupMenu.inflate(R.menu.launcher_context_menu);
-        String title = (String) popupMenu.getMenu().findItem(R.id.launch_count).getTitle() + " ";
-        title += mData.get(position).getLaunched();
-        popupMenu.getMenu().findItem(R.id.launch_count).setTitle(title);
+        final PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.inflate(R.menu.desktop_context_menu);
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch(menuItem.getItemId()) {
-                    case R.id.delete:
-                        intent = new Intent(Intent.ACTION_DELETE);
-                        intent.setData(Uri.parse(PACKAGE + ":" + mData.get(position).getPackageName()));
-                        view.getContext().startActivity(intent);
-                        break;
-                    case R.id.info:
-                        intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.setData(Uri.parse(PACKAGE + ":" + mData.get(position).getPackageName()));
-                        view.getContext().startActivity(intent);
-                        break;
-                    case R.id.add_to_desktop:
-                        if (!Database.containsOnDesktop(mData.get(position))) {
-                            Database.addToDesktop(mData.get(position));
-                        } else {
-                            Toast.makeText(context, R.string.already_on_desktop, Toast.LENGTH_SHORT).show();
-                        }
+                    case R.id.delete_from_desktop:
+                        Database.removeFromDesktop(mData.get(position));
+                        mData.remove(position);
+                        notifyDataSetChanged();
                         break;
                     default:
                         break;
@@ -118,5 +101,6 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemCount() {
         return mData.size();
     }
+
 }
 

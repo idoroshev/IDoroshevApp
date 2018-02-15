@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.yandex.android.idoroshevapp.R;
 
-class Holder {
+public class Holder {
 
-    static class GridHolder extends RecyclerView.ViewHolder {
+    public static class GridHolder extends RecyclerView.ViewHolder {
 
         private final View mImageView;
         private final TextView mTextView;
@@ -30,13 +30,13 @@ class Holder {
         }
     }
 
-    static class ListHolder extends RecyclerView.ViewHolder {
+    public static class ListHolder extends RecyclerView.ViewHolder {
 
         private final View mImageView;
         private final TextView mTitle;
         private final TextView mText;
 
-        ListHolder(final View view) {
+        public ListHolder(final View view) {
             super(view);
 
             mImageView = view.findViewById(R.id.list_image);

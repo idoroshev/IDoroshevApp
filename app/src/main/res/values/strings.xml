@@ -70,4 +70,37 @@
     <string name="linear_layout">Linear Layout</string>
     <string name="sorting_type">Sorting type</string>
     <string name="choose_sorting_type">Choose sorting type for your apps</string>
+
+    <string name="mobile_number" translatable="false">375–29–231–25–58</string>
+    <string name="mobile">Mobile</string>
+    <string name="home_number" translatable="false">36-85-57</string>
+    <string name="home">Home</string>
+    <string name="github" translatable="false">Github</string>
+    <string name="email_address" translatable="false">iloveyandex@yandex.ru</string>
+    <string name="email">Email</string>
+    <string name="my_address" translatable="false">Oktyabrskaya, 10</string>
+    <string name="address">Address</string>
+    <string name="my_vk" translatable="false">id157765201</string>
+    <string name="vk" translatable="false">VK</string>
+    <string name="my_telegram" translatable="false">\@idoroshev</string>
+    <string name="telegram" translatable="false">Telegram</string>
+    <string name="app_added" translatable="false">App added</string>
+    <string name="app_deleted" translatable="false">App deleted</string>
+
+    <string name="background_change_frequency_key" translatable="false">background_change_frequency</string>
+    <string name="sorting_type_key" translatable="false">sorting_type</string>
+    <string name="update_background_key" translatable="false">update_background</string>
+
+    <string name="background_change_frequency">Background change frequency</string>
+    <string name="minutes_15">15 minutes</string>
+    <string name="hour_1">1 hour</string>
+    <string name="hours_8">8 hours</string>
+    <string name="hours_24">24 hours</string>
+    <string name="update_background_now">Update background now</string>
+    <string name="delete_from_desktop">Delete from desktop</string>
+    <string name="add_to_desktop">Add to Desktop</string>
+    <string name="screen">Screen</string>
+    <string name="desktop">Desktop</string>
+    <string name="applications">Applications</string>
+    <string name="already_on_desktop">App has already on desktop</string>
 </resources>

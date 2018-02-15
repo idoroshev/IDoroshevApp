@@ -2,18 +2,18 @@ package com.yandex.android.idoroshevapp.launcher;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.R;
@@ -60,7 +60,7 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (launchIntent != null) {
                     context.startActivity(launchIntent);
                     mData.get(position).updateLaunched();
-                    Database.insertOrUpdate(mData.get(position));
+                    Database.insertOrUpdateLaunched(mData.get(position));
                 }
             }
         });
@@ -78,7 +78,7 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void showPopUpMenu(final View view, final int position) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-        popupMenu.inflate(R.menu.context_menu);
+        popupMenu.inflate(R.menu.launcher_context_menu);
         String title = (String) popupMenu.getMenu().findItem(R.id.launch_count).getTitle() + " ";
         title += mData.get(position).getLaunched();
         popupMenu.getMenu().findItem(R.id.launch_count).setTitle(title);
@@ -96,6 +96,14 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         intent.setData(Uri.parse(PACKAGE + ":" + mData.get(position).getPackageName()));
                         view.getContext().startActivity(intent);
+                        break;
+                    case R.id.add_to_desktop:
+                        if (!Database.containsOnDesktop(mData.get(position))) {
+                            Database.addToDesktop(mData.get(position));
+                            Log.d("TAGG", "Added to db");
+                        } else {
+                            Toast.makeText(context, R.string.already_on_desktop, Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     default:
                         break;
