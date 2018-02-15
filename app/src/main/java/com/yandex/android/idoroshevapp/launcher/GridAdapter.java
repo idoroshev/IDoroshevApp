@@ -1,5 +1,6 @@
 package com.yandex.android.idoroshevapp.launcher;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.yandex.android.idoroshevapp.data.AppInfo;
 import com.yandex.android.idoroshevapp.R;
+import com.yandex.android.idoroshevapp.data.DataStorage;
 import com.yandex.android.idoroshevapp.data.Database;
 
 import java.util.List;
@@ -61,6 +63,8 @@ public class GridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     context.startActivity(launchIntent);
                     mData.get(position).updateLaunched();
                     Database.insertOrUpdateLaunched(mData.get(position));
+                    DataStorage.sortData((Activity) context);
+                    notifyDataSetChanged();
                 }
             }
         });

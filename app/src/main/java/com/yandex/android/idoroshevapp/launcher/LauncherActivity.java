@@ -122,7 +122,7 @@ public class LauncherActivity extends AppCompatActivity
         Database.initialize(this);
 
         mLayout = findViewById(R.id.launcher_fragment_container);
-
+        mFragment = SettingsFragment.getLayoutFragment(this);
 
         mUpdateImageBroadcastReceiver = new UpdateImageBroadcastReceiver();
 
